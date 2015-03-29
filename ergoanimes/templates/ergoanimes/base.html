@@ -1,0 +1,10 @@
+{% extends 'ergohome/base.html' %}
+{% load i18n %}
+
+
+{% block title %}{{ block.super }} {% trans 'Animes' %}{% endblock %}
+
+
+{% block top-bar-left %}
+  <li><a href="{% url 'ergoanimes:genre_list' %}">{% trans 'Genres' %}</a></li>
+{% endblock %}
