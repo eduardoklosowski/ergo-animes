@@ -8,6 +8,8 @@ from django.utils.encoding import python_2_unicode_compatible
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
+from .validators import check_irc
+
 
 CHOICES_GENRES = (
     (1, _('Action')),
@@ -59,6 +61,55 @@ CHOICES_GENRES = (
 def sorted_choices_genres():
     for genre in sorted(CHOICES_GENRES, key=lambda x: x[1]):
         yield genre
+
+
+@python_2_unicode_compatible
+class Fansub(models.Model):
+    name = models.CharField(_('name'), max_length=40, unique=True)
+    site = models.URLField(_('site'), blank=True)
+    irc = models.CharField(_('IRC'), max_length=200, blank=True, validators=[check_irc])
+    active = models.BooleanField(_('active'), blank=True, default=True)
+    img = models.ImageField(_('image'), upload_to='ergoanimes/fansub', blank=True, null=True)
+
+    class Meta:
+        ordering = ('name',)
+        verbose_name = _('fansub')
+        verbose_name_plural = _('fansubs')
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('ergoanimes:fansub', args=(self.pk,))
+
+    def get_linkdisplay(self):
+        return mark_safe('<a href="%s">%s</a>' % (self.get_absolute_url(), self.name))
+
+    def get_site_linkdisplay(self):
+        if self.site:
+            return mark_safe('<a href="%s" target="_blank">%s</a>' % (
+                self.site,
+                self.site,
+            ))
+        return '-'
+
+    def get_irc_linkdisplay(self):
+        if self.irc:
+            return mark_safe('<a href="%s" target="_blank">%s</a>' % (
+                self.irc,
+                self.irc,
+            ))
+        return '-'
+
+    def get_active_display(self):
+        if self.active:
+            return _('Yes')
+        return _('No')
+
+    def has_img(self):
+        return self.img != ''
+    has_img.boolean = True
+    has_img.short_description = _('has image?')
 
 
 @python_2_unicode_compatible

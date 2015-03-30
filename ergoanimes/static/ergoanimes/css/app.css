@@ -1,0 +1,9 @@
+.width-6r {
+  width: 6rem;
+}
+
+img.border {
+  padding: 0.25rem;
+  border: 1px solid #888;
+  background-color: #fff;
+}

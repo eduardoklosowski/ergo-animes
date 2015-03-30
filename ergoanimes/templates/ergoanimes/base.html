@@ -1,10 +1,27 @@
 {% extends 'ergohome/base.html' %}
 {% load i18n %}
+{% load staticfiles %}
 
 
 {% block title %}{{ block.super }} {% trans 'Animes' %}{% endblock %}
 
+{% block css %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'ergoanimes/css/app.css' %}">
+{% endblock %}
+
 
 {% block top-bar-left %}
+  <li class="{% if perms.ergoanimes.add_fansub %}has-dropdown{% endif %}">
+    <a href="{% url 'ergoanimes:fansub_list' %}">{% trans 'Fansubs' %}</a>
+    {% if perms.ergoanimes.add_fansub %}
+      <ul class="dropdown">
+        <li><a href="{% url 'ergoanimes:fansub_list' %}">{% trans 'All' %}</a></li>
+        <li class="divider"></li>
+        <li><a href="{% url 'ergoanimes:fansub_add' %}">{% trans 'Add' %}</a></li>
+      </ul>
+    {% endif %}
+  </li>
+  <li class="divider"></li>
   <li><a href="{% url 'ergoanimes:genre_list' %}">{% trans 'Genres' %}</a></li>
 {% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'ergoanimes/base.html' %}
+{% load i18n %}
+
+
+{% block content %}
+  {{ block.super }}
+  <section role="application" class="content text-center">
+    <h1>{{ title }}</h1>
+    <button class="secondary" onclick="window.history.back()">{% trans 'Cancel' %}</button>
+    <a class="button alart" href="?confirm=y">{% trans 'Delete' %}</a>
+  </section>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'ergoanimes/base.html' %}
+{% load i18n %}
+
+
+{% block content %}
+  <section role="application" class="content">
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_foundation }}
+      <div class="row">
+        {% if fansub %}
+          <div class="small-12 medium-6 columns small-text-center medium-text-left">
+            <a class="button alert" href="{% url 'ergoanimes:fansub_delete' fansub.pk %}">{% trans 'Delete' %}</a>
+          </div>
+        {% endif %}
+        <div class="small-12 {% if fansub %}medium-6 {% endif %}columns end small-text-center medium-text-right">
+          <a class="button secondary" href="{% url 'ergoanimes:fansub_list' %}">{% trans 'Cancel' %}</a>
+          <button type="submit">{% trans 'Save' %}</button>
+        </div>
+      </div>
+    </form>
+  </section>
+{% endblock %}
