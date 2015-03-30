@@ -8,6 +8,14 @@ from . import views
 
 
 url_list = [
+    url(r'^$', views.anime_list, name='index'),
+
+    url(r'^anime/$', views.anime_list, name='anime_list'),
+    url(r'^anime/add/$', views.anime_form, name='anime_add'),
+    url(r'^anime/(?P<pk>\d+)/$', views.anime_show, name='anime'),
+    url(r'^anime/(?P<pk>\d+)/edit/$', views.anime_form, name='anime_edit'),
+    url(r'^anime/(?P<pk>\d+)/delete/$', views.anime_delete, name='anime_delete'),
+
     url(r'^fansub/$', views.fansub_list, name='fansub_list'),
     url(r'^fansub/add/$', views.fansub_form, name='fansub_add'),
     url(r'^fansub/(?P<pk>\d+)/$', views.fansub_show, name='fansub'),

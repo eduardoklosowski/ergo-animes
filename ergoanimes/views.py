@@ -8,9 +8,63 @@ from django.contrib.auth.views import redirect_to_login
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import ugettext as _
 
-from .forms import FansubForm
-from .models import Fansub, Genre
-from .tables import FansubTable, GenreTable
+from .forms import AnimeForm, FansubForm
+from .models import Anime, Fansub, Genre
+from .tables import AnimeTable, FansubTable, GenreTable
+
+
+# Anime
+
+@login_required
+def anime_list(request):
+    return render(request, 'ergoanimes/anime_list.html', {
+        'animes': AnimeTable(data=Anime.objects.all()),
+    })
+
+
+@login_required
+def anime_show(request, pk):
+    anime = get_object_or_404(Anime, pk=pk)
+    return render(request, 'ergoanimes/anime_show.html', {
+        'anime': anime,
+    })
+
+
+@login_required
+def anime_form(request, pk=None):
+    if pk:
+        if not request.user.has_perm('ergoanimes.change_anime'):
+            return redirect_to_login(request.path)
+        anime = get_object_or_404(Anime, pk=pk)
+    else:
+        if not request.user.has_perm('ergoanimes.add_anime'):
+            return redirect_to_login(request.path)
+        anime = None
+    if request.method == 'POST':
+        form = AnimeForm(request.POST, request.FILES, instance=anime)
+        if form.is_valid():
+            form.save()
+            messages.add_message(request, messages.INFO, _('Anime "%(name)s" saved') % {'name': form.instance.name})
+            return redirect(form.instance)
+    else:
+        form = AnimeForm(instance=anime)
+    return render(request, 'ergoanimes/anime_form.html', {
+        'form': form,
+        'anime': anime,
+    })
+
+
+@login_required
+@permission_required('ergoanimes.delete_anime')
+def anime_delete(request, pk):
+    anime = get_object_or_404(Anime, pk=pk)
+    if request.GET.get('confirm', '') == 'y':
+        anime.delete()
+        messages.add_message(request, messages.INFO, _('Anime "%(name)s" deleted') % {'name': anime.name})
+        return redirect('ergoanimes:fansub_list')
+    return render(request, 'ergoanimes/pag_delete.html', {
+        'title': _('Delete anime "%(name)s"?') % {'name': anime.name}
+    })
 
 
 # Fansub

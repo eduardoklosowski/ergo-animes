@@ -1,0 +1,38 @@
+{% extends 'ergoanimes/base.html' %}
+{% load i18n %}
+
+
+{% block content %}
+  <section role="application" class="content">
+    <div class="row">
+      {% if anime.img %}
+        <div class="small-12 medium-3 columns text-center">
+          <img class="border" src="{{ anime.img.url }}" alt="Image">
+        </div>
+      {% endif %}
+      <div class="small-12 {% if anime.img %}medium-9 {% endif %}columns">
+        <h1>{{ anime }}</h1>
+        <div class="row">
+          <div class="small-12 medium-6 columns">
+            <ul class="square">
+              <li><strong>{% trans 'Type' %}:</strong> {{ anime.get_media_type_display }}</li>
+              <li><strong>{% trans 'Season' %}:</strong> {{ anime.get_season_start_display }}</li>
+              <li><strong>{% trans 'Episodes' %}:</strong> {{ anime.get_episodes_display }}</li>
+              <li><strong>{% trans 'Genres' %}:</strong> {{ anime.get_genres_linkdisplay }}</li>
+              <li><strong>{% trans 'Links' %}:</strong> {{ anime.get_links_linkdisplay }}</li>
+              {% if perms.ergoanimes.change_anime %}
+                <li><a href="{% url 'ergoanimes:anime_edit' anime.pk %}">{% trans 'Edit' %}</a></li>
+              {% endif %}
+              {% if perms.ergoanimes.delete_anime %}
+                <li><a href="{% url 'ergoanimes:anime_delete' anime.pk %}">{% trans 'Delete' %}</a></li>
+              {% endif %}
+              {% if anime.synopsis %}<li><strong>{% trans 'Synopsis' %}:</strong> {{ anime.synopsis }}</li>{% endif %}
+            </ul>
+          </div>
+          <div class="small-12 medium-6 columns">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}

@@ -6,6 +6,30 @@ from django.utils.translation import ugettext_lazy as _
 from ergo.foundation.tables import Table
 
 
+class AnimeTable(Table):
+    columns = ({'name': _('Anime'),
+                'value': lambda x: x.get_linkdisplay()},
+               {'name': _('Type'),
+                'class': 'show-for-medium-up',
+                'header_class': 'width-6r',
+                'value': lambda x: x.get_media_type_display()},
+               {'name': _('Episodes'),
+                'class': 'show-for-medium-up',
+                'header_class': 'width-6r',
+                'value': lambda x: x.get_episodes_display()},
+               {'name': _('Season'),
+                'class': 'show-for-medium-up',
+                'header_class': 'width-6r',
+                'value': lambda x: x.get_season_start_display()},
+               {'name': _('Genres'),
+                'class': 'show-for-large-up',
+                'value': lambda x: x.get_genres_linkdisplay()},
+               {'name': _('Links'),
+                'class': 'show-for-medium-up',
+                'header_class': 'width-6r',
+                'value': lambda x: x.get_links_linkdisplay()})
+
+
 class FansubTable(Table):
     columns = ({'name': _('Fansub'),
                 'value': lambda x: x.get_linkdisplay()},

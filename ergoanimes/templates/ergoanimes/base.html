@@ -12,6 +12,17 @@
 
 
 {% block top-bar-left %}
+  <li class="has-dropdown">
+    <a href="{% url 'ergoanimes:anime_list' %}">{% trans 'Animes' %}</a>
+    <ul class="dropdown">
+      <li><a href="{% url 'ergoanimes:anime_list' %}">{% trans 'All' %}</a></li>
+      {% if perms.ergoanimes.add_anime %}
+        <li class="divider"></li>
+        <li><a href="{% url 'ergoanimes:anime_add' %}">{% trans 'Add' %}</a></li>
+      {% endif %}
+    </ul>
+  </li>
+  <li class="divider"></li>
   <li class="{% if perms.ergoanimes.add_fansub %}has-dropdown{% endif %}">
     <a href="{% url 'ergoanimes:fansub_list' %}">{% trans 'Fansubs' %}</a>
     {% if perms.ergoanimes.add_fansub %}
