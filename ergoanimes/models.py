@@ -231,3 +231,6 @@ class Genre(models.Model):
 
     def get_linkdisplay(self):
         return mark_safe('<a href="%s">%s</a>' % (self.get_absolute_url(), self.get_genre_display()))
+
+    def count_animes(self):
+        return self.animes.count()

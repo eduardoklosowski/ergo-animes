@@ -46,4 +46,7 @@ class FansubTable(Table):
 
 class GenreTable(Table):
     columns = ({'name': _('Genre'),
-                'value': lambda x: x.get_linkdisplay()},)
+                'value': lambda x: x.get_linkdisplay()},
+               {'name': _('Animes'),
+                'header_class': 'width-6r',
+                'value': lambda x: x.count_animes()})
