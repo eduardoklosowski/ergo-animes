@@ -8,6 +8,7 @@ from django.contrib.auth.views import redirect_to_login
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import ugettext as _
+from ergo.genericview import DeleteView
 
 from .forms import AnimeForm, FansubForm, UserAnimeForm
 from .models import Anime, Fansub, Genre, UserAnime
@@ -60,17 +61,23 @@ def anime_form(request, pk=None):
     })
 
 
-@login_required
-@permission_required('ergoanimes.delete_anime')
-def anime_delete(request, pk):
-    anime = get_object_or_404(Anime, pk=pk)
-    if request.GET.get('confirm', '') == 'y':
-        anime.delete()
-        messages.add_message(request, messages.INFO, _('Anime "%(name)s" deleted') % {'name': anime.name})
-        return redirect('ergoanimes:fansub_list')
-    return render(request, 'ergoanimes/pag_delete.html', {
-        'title': _('Delete anime "%(name)s"?') % {'name': anime.name}
-    })
+class AnimeDeleteView(DeleteView):
+    model = Anime
+    template = 'ergoanimes/base.html'
+    message = _('Delete anime "%(title)s"?')
+    message_deleted = _('Anime "%(title)s" deleted')
+    redirect = 'ergoanimes:anime_list'
+
+    def title(self, anime):
+        return anime.name
+
+    def make_filter(self, request, pk):
+        return {'pk': pk}
+
+
+anime_delete = permission_required('ergoanimes.delete_anime')(
+    AnimeDeleteView.as_view()
+)
 
 
 # Fansub
@@ -114,17 +121,23 @@ def fansub_form(request, pk=None):
     })
 
 
-@login_required
-@permission_required('ergoanimes.delete_fansub')
-def fansub_delete(request, pk):
-    fansub = get_object_or_404(Fansub, pk=pk)
-    if request.GET.get('confirm', '') == 'y':
-        fansub.delete()
-        messages.add_message(request, messages.INFO, _('Fansub "%(name)s" deleted') % {'name': fansub.name})
-        return redirect('ergoanimes:fansub_list')
-    return render(request, 'ergoanimes/pag_delete.html', {
-        'title': _('Delete fansub "%(name)s"?') % {'name': fansub.name}
-    })
+class FansubDeleteView(DeleteView):
+    model = Fansub
+    template = 'ergoanimes/base.html'
+    message = _('Delete fansub "%(title)s"?')
+    message_deleted = _('Fansub "%(title)s" deleted')
+    redirect = 'ergoanimes:fansub_list'
+
+    def title(self, fansub):
+        return fansub.name
+
+    def make_filter(self, request, pk):
+        return {'pk': pk}
+
+
+fansub_delete = permission_required('ergoanimes.delete_fansub')(
+    FansubDeleteView.as_view()
+)
 
 
 # Genre
@@ -178,14 +191,18 @@ def useranime_form(request, pk):
     })
 
 
-@login_required
-def useranime_delete(request, pk):
-    useranime = get_object_or_404(UserAnime, user=request.user, anime=pk)
-    if request.GET.get('confirm', '') == 'y':
-        useranime.delete()
-        messages.add_message(request, messages.INFO,
-                             _('Anime "%(name)s" list removed') % {'name': useranime.anime.name})
-        return redirect(useranime.anime)
-    return render(request, 'ergoanimes/pag_delete.html', {
-        'title': _('Remove anime "%(name)s" from list?') % {'name': useranime.anime.name},
-    })
+class UserAnimeDeleteView(DeleteView):
+    model = UserAnime
+    template = 'ergoanimes/base.html'
+    message = _('Remove anime "%(title)s" from list?')
+    message_deleted = _('Anime "%(title)s" removed')
+    redirect = 'ergoanimes:anime_list'
+
+    def title(self, useranime):
+        return useranime.anime.name
+
+    def make_filter(self, request, pk):
+        return {'user': request.user, 'anime': pk}
+
+
+useranime_delete = UserAnimeDeleteView.as_view()
