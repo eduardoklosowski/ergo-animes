@@ -16,6 +16,7 @@ class AnimeTable(Table):
                {'name': _('Episodes'),
                 'class': 'show-for-medium-up',
                 'header_class': 'width-6r',
+                'row_class': 'text-right',
                 'value': lambda x, e: x.get_episodes_display()},
                {'name': _('Season'),
                 'class': 'show-for-medium-up',
@@ -49,6 +50,7 @@ class FansubTable(Table):
                {'name': _('My List'),
                 'class': 'show-for-medium-up',
                 'header_class': 'width-6r',
+                'row_class': 'text-right',
                 'value': lambda x, e: x.count_useranimes(e['user'])})
 
 
@@ -57,9 +59,11 @@ class GenreTable(Table):
                 'value': lambda x, e: x.get_linkdisplay()},
                {'name': _('My List'),
                 'header_class': 'width-6r',
+                'row_class': 'text-right',
                 'value': lambda x, e: x.count_useranimes(e['user'])},
                {'name': _('Animes'),
                 'header_class': 'width-6r',
+                'row_class': 'text-right',
                 'value': lambda x, e: x.count_animes()})
 
 
@@ -77,10 +81,12 @@ class UserAnimeTable(Table):
                {'name': _('Note'),
                 'class': 'show-for-medium-up',
                 'header_class': 'width-6r',
+                'row_class': 'text-right',
                 'value': lambda x: x.get_note_display()},
                {'name': _('Episodes'),
                 'class': 'show-for-medium-up',
                 'header_class': 'width-6r',
+                'row_class': 'text-right',
                 'value': lambda x: x.anime.get_episodes_display()},
                {'name': _('Status'),
                 'header_class': 'width-6r',
