@@ -8,48 +8,59 @@ from ergo.foundation.tables import Table
 
 class AnimeTable(Table):
     columns = ({'name': _('Anime'),
-                'value': lambda x: x.get_linkdisplay()},
+                'value': lambda x, e: x.get_linkdisplay()},
                {'name': _('Type'),
                 'class': 'show-for-medium-up',
                 'header_class': 'width-6r',
-                'value': lambda x: x.get_media_type_display()},
+                'value': lambda x, e: x.get_media_type_display()},
                {'name': _('Episodes'),
                 'class': 'show-for-medium-up',
                 'header_class': 'width-6r',
-                'value': lambda x: x.get_episodes_display()},
+                'value': lambda x, e: x.get_episodes_display()},
                {'name': _('Season'),
                 'class': 'show-for-medium-up',
                 'header_class': 'width-6r',
-                'value': lambda x: x.get_season_start_display()},
+                'value': lambda x, e: x.get_season_start_display()},
                {'name': _('Genres'),
                 'class': 'show-for-large-up',
-                'value': lambda x: x.get_genres_linkdisplay()},
+                'value': lambda x, e: x.get_genres_linkdisplay()},
+               {'name': _('Status'),
+                'class': 'show-for-large-up',
+                'header_class': 'width-6r',
+                'value': lambda x, e: x.get_useranime_status(e['user'])},
                {'name': _('Links'),
                 'class': 'show-for-medium-up',
                 'header_class': 'width-6r',
-                'value': lambda x: x.get_links_linkdisplay()})
+                'value': lambda x, e: x.get_links_linkdisplay()})
 
 
 class FansubTable(Table):
     columns = ({'name': _('Fansub'),
-                'value': lambda x: x.get_linkdisplay()},
+                'value': lambda x, e: x.get_linkdisplay()},
                {'name': _('Site'),
                 'class': 'show-for-medium-up',
-                'value': lambda x: x.get_site_linkdisplay()},
+                'value': lambda x, e: x.get_site_linkdisplay()},
                {'name': _('IRC'),
                 'class': 'show-for-large-up',
-                'value': lambda x: x.get_irc_linkdisplay()},
+                'value': lambda x, e: x.get_irc_linkdisplay()},
                {'name': _('Active'),
                 'header_class': 'width-6r',
-                'value': lambda x: x.get_active_display()})
+                'value': lambda x, e: x.get_active_display()},
+               {'name': _('My List'),
+                'class': 'show-for-medium-up',
+                'header_class': 'width-6r',
+                'value': lambda x, e: x.count_useranimes(e['user'])})
 
 
 class GenreTable(Table):
     columns = ({'name': _('Genre'),
-                'value': lambda x: x.get_linkdisplay()},
+                'value': lambda x, e: x.get_linkdisplay()},
+               {'name': _('My List'),
+                'header_class': 'width-6r',
+                'value': lambda x, e: x.count_useranimes(e['user'])},
                {'name': _('Animes'),
                 'header_class': 'width-6r',
-                'value': lambda x: x.count_animes()})
+                'value': lambda x, e: x.count_animes()})
 
 
 class UserAnimeTable(Table):

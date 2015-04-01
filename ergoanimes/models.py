@@ -3,7 +3,7 @@
 from __future__ import unicode_literals
 
 from django.conf import settings
-from django.core.exceptions import ValidationError
+from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.template.defaultfilters import date
@@ -184,6 +184,12 @@ class Anime(models.Model):
     has_synopsis.boolean = True
     has_synopsis.short_description = _('Has synopsis?')
 
+    def get_useranime_status(self, user):
+        try:
+            return self.useranimes.get(user=user).get_status_display()
+        except ObjectDoesNotExist:
+            return '-'
+
 
 @python_2_unicode_compatible
 class Fansub(models.Model):
@@ -233,6 +239,9 @@ class Fansub(models.Model):
     has_img.boolean = True
     has_img.short_description = _('has image?')
 
+    def count_useranimes(self, user):
+        return self.useranimes.filter(user=user).count()
+
 
 @python_2_unicode_compatible
 class Genre(models.Model):
@@ -254,6 +263,9 @@ class Genre(models.Model):
 
     def count_animes(self):
         return self.animes.count()
+
+    def count_useranimes(self, user):
+        return UserAnime.objects.filter(user=user, anime__in=self.animes.all()).count()
 
 
 @python_2_unicode_compatible

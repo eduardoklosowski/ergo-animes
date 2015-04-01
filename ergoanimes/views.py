@@ -19,7 +19,7 @@ from .tables import AnimeTable, FansubTable, GenreTable, UserAnimeTable
 @login_required
 def anime_list(request):
     return render(request, 'ergoanimes/anime_list.html', {
-        'animes': AnimeTable(data=Anime.objects.all()),
+        'animes': AnimeTable(data=Anime.objects.all(), data_extra={'user': request.user}),
     })
 
 
@@ -78,7 +78,7 @@ def anime_delete(request, pk):
 @login_required
 def fansub_list(request):
     return render(request, 'ergoanimes/fansub_list.html', {
-        'fansubs': FansubTable(data=Fansub.objects.all()),
+        'fansubs': FansubTable(data=Fansub.objects.all(), data_extra={'user': request.user}),
     })
 
 
@@ -132,7 +132,7 @@ def fansub_delete(request, pk):
 @login_required
 def genre_list(request):
     return render(request, 'ergoanimes/genre_list.html', {
-        'genres': GenreTable(data=Genre.objects.all()),
+        'genres': GenreTable(data=Genre.objects.all(), data_extra={'user': request.user}),
     })
 
 
