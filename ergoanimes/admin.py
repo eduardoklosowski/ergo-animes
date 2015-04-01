@@ -35,3 +35,21 @@ class FansubAdmin(admin.ModelAdmin):
 class GenreAdmin(admin.ModelAdmin):
     list_display = ('genre',)
     search_fields = ('genre',)
+
+
+@admin.register(models.UserAnime)
+class UserAnimeAdmin(admin.ModelAdmin):
+    date_hierarchy = 'date_start'
+    fields = (('user', 'anime'),
+              'status',
+              'fansub',
+              ('quality', 'resolution'),
+              ('episodes_pub', 'episodes_down', 'episodes_viewed', 'times'),
+              ('date_start', 'date_end'),
+              'link',
+              'note',
+              'comment')
+    list_display = ('user', 'anime', 'status', 'fansub', 'quality', 'note')
+    list_display_links = ('user', 'anime')
+    list_filter = ('status', 'quality')
+    search_fields = ('=user__username', 'anime__name', '=anime__mal', '=anime__anidb')

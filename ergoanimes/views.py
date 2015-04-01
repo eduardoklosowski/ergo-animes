@@ -5,12 +5,13 @@ from __future__ import unicode_literals
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.views import redirect_to_login
+from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import ugettext as _
 
-from .forms import AnimeForm, FansubForm
-from .models import Anime, Fansub, Genre
-from .tables import AnimeTable, FansubTable, GenreTable
+from .forms import AnimeForm, FansubForm, UserAnimeForm
+from .models import Anime, Fansub, Genre, UserAnime
+from .tables import AnimeTable, FansubTable, GenreTable, UserAnimeTable
 
 
 # Anime
@@ -25,8 +26,13 @@ def anime_list(request):
 @login_required
 def anime_show(request, pk):
     anime = get_object_or_404(Anime, pk=pk)
+    try:
+        useranime = anime.useranimes.get(user=request.user)
+    except ObjectDoesNotExist:
+        useranime = None
     return render(request, 'ergoanimes/anime_show.html', {
         'anime': anime,
+        'useranime': useranime,
     })
 
 
@@ -135,4 +141,51 @@ def genre_show(request, pk):
     genre = get_object_or_404(Genre, pk=pk)
     return render(request, 'ergoanimes/genre_show.html', {
         'genre': genre,
+    })
+
+
+# User Anime
+
+@login_required
+def useranime_list(request):
+    return render(request, 'ergoanimes/useranime_list.html', {
+        'useranimes': UserAnimeTable(data=UserAnime.objects.filter(user=request.user)),
+    })
+
+
+@login_required
+def useranime_form(request, pk):
+    anime = Anime.objects.get(pk=pk)
+    try:
+        useranime = anime.useranimes.get(user=request.user)
+    except ObjectDoesNotExist:
+        useranime = UserAnime(anime=anime)
+    if request.method == 'POST':
+        form = UserAnimeForm(request.POST, instance=useranime)
+        if form.is_valid():
+            instance = form.instance
+            instance.user = request.user
+            instance.anime = anime
+            instance.save()
+            messages.add_message(request, messages.INFO, _('Anime "%(name)s" update in list') % {'name': anime.name})
+            return redirect(anime)
+    else:
+        form = UserAnimeForm(instance=useranime)
+    return render(request, 'ergoanimes/useranime_form.html', {
+        'form': form,
+        'anime': anime,
+        'useranime': useranime,
+    })
+
+
+@login_required
+def useranime_delete(request, pk):
+    useranime = get_object_or_404(UserAnime, user=request.user, anime=pk)
+    if request.GET.get('confirm', '') == 'y':
+        useranime.delete()
+        messages.add_message(request, messages.INFO,
+                             _('Anime "%(name)s" list removed') % {'name': useranime.anime.name})
+        return redirect(useranime.anime)
+    return render(request, 'ergoanimes/pag_delete.html', {
+        'title': _('Remove anime "%(name)s" from list?') % {'name': useranime.anime.name},
     })

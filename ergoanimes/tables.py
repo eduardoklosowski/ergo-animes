@@ -50,3 +50,33 @@ class GenreTable(Table):
                {'name': _('Animes'),
                 'header_class': 'width-6r',
                 'value': lambda x: x.count_animes()})
+
+
+class UserAnimeTable(Table):
+    columns = ({'name': _('Anime'),
+                'value': lambda x: x.anime.get_linkdisplay()},
+               {'name': _('Type'),
+                'class': 'show-for-medium-up',
+                'header_class': 'width-6r',
+                'value': lambda x: x.anime.get_media_type_display()},
+               {'name': _('Season'),
+                'class': 'show-for-large-up',
+                'header_class': 'width-6r',
+                'value': lambda x: x.anime.get_season_start_display()},
+               {'name': _('Note'),
+                'class': 'show-for-medium-up',
+                'header_class': 'width-6r',
+                'value': lambda x: x.get_note_display()},
+               {'name': _('Episodes'),
+                'class': 'show-for-medium-up',
+                'header_class': 'width-6r',
+                'value': lambda x: x.anime.get_episodes_display()},
+               {'name': _('Status'),
+                'header_class': 'width-6r',
+                'value': lambda x: x.get_status_display()},
+               {'name': _('Fansub'),
+                'class': 'show-for-large-up',
+                'value': lambda x: x.get_fansub_linkdisplay()},
+               {'name': _('Link'),
+                'class': 'show-for-large-up',
+                'value': lambda x: x.get_link_linkdisplay()})

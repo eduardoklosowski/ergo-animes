@@ -1,0 +1,24 @@
+{% extends 'ergoanimes/base.html' %}
+{% load i18n %}
+
+
+{% block content %}
+  <section role="application" class="content">
+    <form method="post">
+      <div class="row"><div class="small-12 columns"><h1>{{ anime.name }}</h1></div></div>
+      {% csrf_token %}
+      {{ form.as_foundation }}
+      <div class="row">
+        {% if useranime %}
+          <div class="small-12 medium-6 columns small-text-center medium-text-left">
+            <a class="button alert" href="{% url 'ergoanimes:useranime_delete' anime.pk %}">{% trans 'Delete' %}</a>
+          </div>
+        {% endif %}
+        <div class="small-12 {% if useranime %}medium-6 {% endif %}columns end small-text-center medium-text-right">
+          <button class="secondary" type="button" onclick="window.history.back()">{% trans 'Cancel' %}</button>
+          <button type="submit">{% trans 'Save' %}</button>
+        </div>
+      </div>
+    </form>
+  </section>
+{% endblock %}

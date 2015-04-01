@@ -44,3 +44,22 @@ class FansubForm(forms.ModelForm, FoundationForm):
             (None, ('site', 'irc')),
             (None, ('img', 'active')),
         )
+
+
+class UserAnimeForm(forms.ModelForm, FoundationForm):
+    class Meta:
+        fields = ('status', 'fansub', 'quality', 'resolution', 'episodes_pub', 'episodes_down', 'episodes_viewed',
+                  'times', 'date_start', 'date_end', 'link', 'note', 'comment')
+        model = models.UserAnime
+
+        foundation_column_class = {
+            'comment': 'small-12',
+        }
+        foundation_fieldsets = (
+            (None, ('status', 'fansub')),
+            (None, ('quality', 'resolution')),
+            (_('Episodes'), ('episodes_pub', 'episodes_down', 'episodes_viewed', 'times')),
+            (_('Date'), ('date_start', 'date_end')),
+            (None, ('link', 'note')),
+            (None, ('comment',)),
+        )

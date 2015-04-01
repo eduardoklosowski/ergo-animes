@@ -2,14 +2,17 @@
 
 from __future__ import unicode_literals
 
+from django.conf import settings
+from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 from django.db import models
+from django.template.defaultfilters import date
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
 from .utils import calc_season_end, calc_season_start
-from .validators import check_irc
+from .validators import check_irc, check_note
 
 
 CHOICES_GENRES = (
@@ -65,6 +68,23 @@ CHOICES_MEDIA_TYPE = (
     ('ova', _('OVA')),
     ('movie', _('Movie')),
     ('ona', _('ONA')),
+)
+
+CHOICES_QUALITY = (
+    ('', '-'),
+    ('bluray', _('Blu-ray')),
+    ('hdtv', _('HDTV')),
+    ('dvd', _('DVD')),
+    ('tv', _('TV')),
+    ('web', _('Web')),
+)
+
+CHOICES_STATUS = (
+    ('new', _('New')),
+    ('watching', _('Watching')),
+    ('hold', _('Hold')),
+    ('completed', _('Completed')),
+    ('drop', _('Drop')),
 )
 
 
@@ -234,3 +254,98 @@ class Genre(models.Model):
 
     def count_animes(self):
         return self.animes.count()
+
+
+@python_2_unicode_compatible
+class UserAnime(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('user'), related_name='+')
+    anime = models.ForeignKey(Anime, verbose_name=_('anime'), related_name='useranimes')
+    status = models.CharField(_('status'), max_length=9, choices=CHOICES_STATUS)
+    fansub = models.ForeignKey(Fansub, verbose_name=_('fansub'), related_name='useranimes', blank=True, null=True)
+    quality = models.CharField(_('quality'), max_length=6, blank=True, choices=CHOICES_QUALITY)
+    resolution = models.PositiveSmallIntegerField(_('resolution'), blank=True, null=True)
+    episodes_pub = models.PositiveSmallIntegerField(_('published'), blank=True, null=True)
+    episodes_down = models.PositiveSmallIntegerField(_('download'), blank=True, null=True)
+    episodes_viewed = models.PositiveSmallIntegerField(_('viewed'), blank=True, null=True)
+    times = models.PositiveSmallIntegerField(_('times watched'), default=0)
+    date_start = models.DateField(_('start in'), blank=True, null=True)
+    date_end = models.DateField(_('end in'), blank=True, null=True)
+    link = models.URLField(_('link'), blank=True)
+    note = models.DecimalField(_('note'), max_digits=2, decimal_places=1, blank=True, null=True, validators=[check_note])
+    comment = models.TextField(_('comment'), blank=True)
+
+    class Meta:
+        ordering = ('user', 'anime')
+        unique_together = (('user', 'anime'),)
+        verbose_name = _('user anime')
+        verbose_name_plural = _('users animes')
+
+    def __str__(self):
+        return '[%s] %s' % (self.user, self.anime)
+
+    def get_absolute_url(self):
+        return reverse('ergoanimes:anime', args=(self.pk,))
+
+    def clean(self):
+        if self.status == 'completed' and not self.times:
+            raise ValidationError(_('How many times this anime was watched?'))
+        if self.date_start and self.date_end and self.date_end < self.date_start:
+            raise ValidationError(_('End date can be more than start'))
+        episodes = self.anime.episodes
+        if episodes is not None:
+            if self.episodes_pub is not None and self.episodes_pub > episodes:
+                raise ValidationError(_('Published episodes more than %(episodes)d') % {'episodes': episodes})
+            if self.episodes_down is not None and self.episodes_down > episodes:
+                raise ValidationError(_('Download episodes more than %(episodes)d') % {'episodes': episodes})
+            if self.episodes_viewed is not None and self.episodes_viewed > episodes:
+                raise ValidationError(_('Viewed episodes more than %(episodes)d') % {'episodes': episodes})
+
+    def get_fansub_linkdisplay(self):
+        if self.fansub:
+            return self.fansub.get_linkdisplay()
+        return '-'
+
+    def get_resolution_display(self):
+        if self.resolution is not None:
+            return '%dp' % self.resolution
+        return '-'
+
+    def get_episodes_pub_display(self):
+        if self.episodes_pub is not None:
+            return self.episodes_pub
+        return '-'
+
+    def get_episodes_down_display(self):
+        if self.episodes_down is not None:
+            return self.episodes_down
+        return '-'
+
+    def get_episodes_viewed_display(self):
+        if self.episodes_viewed is not None:
+            return self.episodes_viewed
+        return '-'
+
+    def get_date_display(self):
+        output = []
+        if self.date_start:
+            output.append(date(self.date_start, 'SHORT_DATE_FORMAT'))
+        else:
+            output.append('-')
+        if self.date_end:
+            output.append(date(self.date_end, 'SHORT_DATE_FORMAT'))
+        else:
+            output.append('-')
+
+        if output == ['-', '-']:
+            return '-'
+        return _('%(date_start)s to %(date_end)s') % {'date_start': output[0], 'date_end': output[1]}
+
+    def get_link_linkdisplay(self):
+        if self.link:
+            return mark_safe('<a href="%s" target="_blank">%s</a>' % (self.link, self.link))
+        return '-'
+
+    def get_note_display(self):
+        if self.note is not None:
+            return self.note
+        return '-'

@@ -24,6 +24,10 @@ url_list = [
 
     url(r'^genre/$', views.genre_list, name='genre_list'),
     url(r'^genre/(?P<pk>\d+)/$', views.genre_show, name='genre'),
+
+    url(r'^anime/user/$', views.useranime_list, name='useranime_list'),
+    url(r'^anime/(?P<pk>\d+)/user/$', views.useranime_form, name='useranime_form'),
+    url(r'^anime/(?P<pk>\d+)/user/delete/$', views.useranime_delete, name='useranime_delete'),
 ]
 
 urlpatterns = [

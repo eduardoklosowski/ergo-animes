@@ -30,6 +30,31 @@
             </ul>
           </div>
           <div class="small-12 medium-6 columns">
+            {% if useranime %}
+              <ul class="square">
+                <li><strong>{% trans 'Status' %}:</strong> {{ useranime.get_status_display }}</li>
+                <li><strong>{% trans 'Fansub' %}:</strong> {{ useranime.get_fansub_linkdisplay }}</li>
+                <li><strong>{% trans 'Quality' %}:</strong> {{ useranime.get_quality_display }}</li>
+                <li><strong>{% trans 'Resolution' %}:</strong> {{ useranime.get_resolution_display }}</li>
+                <li><strong>{% trans 'Note' %}:</strong> {{ useranime.get_note_display }}</li>
+                <li>
+                  <strong>{% trans 'Episodes' %}:</strong>
+                  <ul class="square">
+                    <li><strong>{% trans 'Published' %}:</strong> {{ useranime.get_episodes_pub_display }}</li>
+                    <li><strong>{% trans 'Downloaded' %}:</strong> {{ useranime.get_episodes_down_display }}</li>
+                    <li><strong>{% trans 'Viewed' %}:</strong> {{ useranime.get_episodes_viewed_display }}</li>
+                  </ul>
+                </li>
+                <li><strong>{% trans 'Times Watched' %}:</strong> {{ useranime.times }}</li>
+                <li><strong>{% trans 'Watch in' %}:</strong> {{ useranime.get_date_display }}</li>
+                <li><strong>{% trans 'Link' %}:</strong> {{ useranime.get_link_linkdisplay }}</li>
+                <li><a href="{% url 'ergoanimes:useranime_form' anime.pk %}">{% trans 'Edit' %}</a></li>
+                <li><a href="{% url 'ergoanimes:useranime_delete' anime.pk %}">{% trans 'Delete' %}</a></li>
+                {% if useranime.comment %}<li><strong>{% trans 'Comment' %}:</strong> {{ useranime.comment }}</li>{% endif %}
+              </ul>
+            {% else %}
+              <a href="{% url 'ergoanimes:useranime_form' anime.pk %}">{% trans 'Add to my list' %}</a>
+            {% endif %}
           </div>
         </div>
       </div>
