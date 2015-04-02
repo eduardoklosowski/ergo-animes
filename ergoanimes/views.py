@@ -196,13 +196,16 @@ class UserAnimeDeleteView(DeleteView):
     template = 'ergoanimes/base.html'
     message = _('Remove anime "%(title)s" from list?')
     message_deleted = _('Anime "%(title)s" removed')
-    redirect = 'ergoanimes:anime_list'
+    redirect = 'ergoanimes:anime'
 
     def title(self, useranime):
         return useranime.anime.name
 
     def make_filter(self, request, pk):
         return {'user': request.user, 'anime': pk}
+
+    def redirect_args(self, request, pk):
+        return (pk,)
 
 
 useranime_delete = UserAnimeDeleteView.as_view()
