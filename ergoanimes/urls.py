@@ -27,6 +27,7 @@ url_list = [
 
     url(r'^anime/user/$', views.useranime_list, name='useranime_list'),
     url(r'^anime/status/$', views.useranime_status, name='useranime_status'),
+    url(r'^anime/note/$', views.useranime_bynote, name='useranime_bynote'),
     url(r'^anime/(?P<pk>\d+)/user/$', views.useranime_form, name='useranime_form'),
     url(r'^anime/(?P<pk>\d+)/user/delete/$', views.useranime_delete, name='useranime_delete'),
 ]

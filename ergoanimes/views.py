@@ -177,6 +177,15 @@ def useranime_status(request):
 
 
 @login_required
+def useranime_bynote(request):
+    useranimes = UserAnimeTable(data=UserAnime.objects.filter(user=request.user, note__isnull=False)
+                                .order_by('-note', 'anime__name'))
+    return render(request, 'ergoanimes/useranime_list.html', {
+        'useranimes': useranimes,
+    })
+
+
+@login_required
 def useranime_form(request, pk):
     anime = Anime.objects.get(pk=pk)
     try:
