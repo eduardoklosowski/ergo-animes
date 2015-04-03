@@ -15,7 +15,22 @@
   <li class="has-dropdown">
     <a href="{% url 'ergoanimes:anime_list' %}">{% trans 'Animes' %}</a>
     <ul class="dropdown">
-      <li><a href="{% url 'ergoanimes:useranime_list' %}">{% trans 'My List' %}</a></li>
+      <li class="has-dropdown">
+        <a href="{% url 'ergoanimes:useranime_list' %}">{% trans 'My List' %}</a>
+        <ul class="dropdown">
+          <li class="has-dropdown">
+            <a href="{% url 'ergoanimes:useranime_status' %}">{% trans 'Status' %}</a>
+            <ul class="dropdown">
+              <li><a href="{% url 'ergoanimes:useranime_status' %}#watching">{% trans 'Watching' %}</a></li>
+              <li><a href="{% url 'ergoanimes:useranime_status' %}#hold">{% trans 'Hold' %}</a></li>
+              <li><a href="{% url 'ergoanimes:useranime_status' %}#completed">{% trans 'Completed' %}</a></li>
+              <li><a href="{% url 'ergoanimes:useranime_status' %}#drop">{% trans 'Drop' %}</a></li>
+              <li><a href="{% url 'ergoanimes:useranime_status' %}#new">{% trans 'New' %}</a></li>
+            </ul>
+          </li>
+          <li><a href="{% url 'ergoanimes:useranime_list' %}">{% trans 'All' %}</a></li>
+        </ul>
+      </li>
       <li><a href="{% url 'ergoanimes:anime_list' %}">{% trans 'All' %}</a></li>
       {% if perms.ergoanimes.add_anime %}
         <li class="divider"></li>

@@ -11,8 +11,8 @@ from django.utils.translation import ugettext as _
 from ergo.genericview import DeleteView
 
 from .forms import AnimeForm, FansubForm, UserAnimeForm
-from .models import Anime, Fansub, Genre, UserAnime
-from .tables import AnimeTable, FansubTable, GenreTable, UserAnimeTable
+from .models import Anime, Fansub, Genre, UserAnime, CHOICES_STATUS
+from .tables import AnimeTable, FansubTable, GenreTable, UserAnimeTable, UserAnimeStatusTable
 
 
 # Anime
@@ -163,6 +163,16 @@ def genre_show(request, pk):
 def useranime_list(request):
     return render(request, 'ergoanimes/useranime_list.html', {
         'useranimes': UserAnimeTable(data=UserAnime.objects.filter(user=request.user)),
+    })
+
+
+@login_required
+def useranime_status(request):
+    useranimes = UserAnime.objects.filter(user=request.user)
+    status = list(CHOICES_STATUS)
+    status.append(status.pop(0))
+    return render(request, 'ergoanimes/useranime_status.html', {
+        'tables': [(s[0], s[1], UserAnimeStatusTable(data=useranimes.filter(status=s[0]))) for s in status],
     })
 
 

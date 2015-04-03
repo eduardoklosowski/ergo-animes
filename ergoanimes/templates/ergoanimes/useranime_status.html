@@ -1,0 +1,11 @@
+{% extends 'ergoanimes/base.html' %}
+
+
+{% block content %}
+  <section role="application" class="content">
+    {% for id, status, table in tables %}
+      <h2 id="{{ id }}">{{ status }}</h2>
+      {{ table }}
+    {% endfor %}
+  </section>
+{% endblock %}

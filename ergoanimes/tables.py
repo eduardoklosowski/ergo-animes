@@ -97,3 +97,10 @@ class UserAnimeTable(Table):
                {'name': _('Link'),
                 'class': 'show-for-large-up',
                 'value': lambda x: x.get_link_linkdisplay()})
+
+
+class UserAnimeStatusTable(UserAnimeTable):
+    def __init__(self, *args, **kwargs):
+        self.columns = list(self.columns)
+        self.columns.pop(5)
+        super(UserAnimeStatusTable, self).__init__(*args, **kwargs)
