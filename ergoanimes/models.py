@@ -5,6 +5,7 @@ from __future__ import unicode_literals
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.core.urlresolvers import reverse
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.template.defaultfilters import date
 from django.utils.encoding import python_2_unicode_compatible
@@ -12,7 +13,7 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
 from .utils import calc_season_end, calc_season_start
-from .validators import check_irc, check_note
+from .validators import check_irc
 
 
 CHOICES_GENRES = (
@@ -283,7 +284,8 @@ class UserAnime(models.Model):
     date_start = models.DateField(_('start in'), blank=True, null=True)
     date_end = models.DateField(_('end in'), blank=True, null=True)
     link = models.URLField(_('link'), blank=True)
-    note = models.DecimalField(_('note'), max_digits=2, decimal_places=1, blank=True, null=True, validators=[check_note])
+    note = models.DecimalField(_('note'), max_digits=2, decimal_places=1, blank=True, null=True,
+                               validators=[MinValueValidator(0), MaxValueValidator(5)])
     comment = models.TextField(_('comment'), blank=True)
 
     class Meta:
