@@ -333,8 +333,7 @@ class UserAnime(models.Model):
         return '-'
 
     def get_episodes_pub_display(self):
-        episodes = self.episodes_pub or '-'
-        return '%s / %s' % (episodes, self.anime.episodes)
+        return '%s/%s' % (self.episodes_pub or '-', self.anime.episodes or '-')
 
     def get_episodes_pub_linkdisplay(self):
         episodes = self.get_episodes_pub_display()
@@ -346,8 +345,7 @@ class UserAnime(models.Model):
         return episodes
 
     def get_episodes_down_display(self):
-        episodes = self.episodes_down or '-'
-        return '%s / %s' % (episodes, self.anime.episodes)
+        return '%s/%s' % (self.episodes_down or '-', self.episodes_pub or '-')
 
     def get_episodes_down_linkdisplay(self):
         episodes = self.get_episodes_down_display()
@@ -359,8 +357,7 @@ class UserAnime(models.Model):
         return episodes
 
     def get_episodes_viewed_display(self):
-        episodes = self.episodes_viewed or '-'
-        return '%s / %s' % (episodes, self.anime.episodes)
+        return '%s/%s' % (self.episodes_viewed or '-', self.episodes_down or '-')
 
     def get_episodes_viewed_linkdisplay(self):
         episodes = self.get_episodes_viewed_display()
