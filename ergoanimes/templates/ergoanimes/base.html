@@ -10,6 +10,11 @@
   <link rel="stylesheet" href="{% static 'ergoanimes/css/app.css' %}">
 {% endblock %}
 
+{% block js %}
+  {{ block.super }}
+  <script src="{% static 'ergoanimes/js/app.js' %}"></script>
+{% endblock %}
+
 
 {% block top-bar-left %}
   <li class="has-dropdown">

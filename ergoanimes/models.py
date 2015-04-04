@@ -133,6 +133,14 @@ class Anime(models.Model):
     def get_linkdisplay(self):
         return mark_safe('<a href="%s">%s</a>' % (self.get_absolute_url(), self.name))
 
+    def get_anime_img_synopsis_linkdisplay(self):
+        text = self.get_linkdisplay()
+        if self.img:
+            text += '<img class="border" data-src="%s">' % self.img.url
+        if self.synopsis:
+            text += '<div class="synopsis">%s</div>' % self.synopsis.replace('\n', '<br>')
+        return mark_safe(text)
+
     def has_img(self):
         return self.img != ''
     has_img.boolean = True

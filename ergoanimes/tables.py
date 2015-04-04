@@ -8,7 +8,8 @@ from ergo.foundation.tables import Table
 
 class AnimeTable(Table):
     columns = ({'name': _('Anime'),
-                'value': lambda x, e: x.get_linkdisplay()},
+                'row_class': 'anime',
+                'value': lambda x, e: x.get_anime_img_synopsis_linkdisplay()},
                {'name': _('Type'),
                 'class': 'show-for-medium-up',
                 'header_class': 'width-6r',
@@ -69,7 +70,8 @@ class GenreTable(Table):
 
 class UserAnimeTable(Table):
     columns = ({'name': _('Anime'),
-                'value': lambda x: x.anime.get_linkdisplay()},
+                'row_class': 'anime',
+                'value': lambda x: x.anime.get_anime_img_synopsis_linkdisplay()},
                {'name': _('Type'),
                 'class': 'show-for-medium-up',
                 'header_class': 'width-6r',
