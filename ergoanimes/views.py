@@ -190,6 +190,13 @@ def useranime_reports(request):
 
 
 @login_required
+def useranime_check(request):
+    return render(request, 'ergoanimes/useranime_list.html', {
+        'useranimes': UserAnimeTable(data=reports.check_new(request.user)),
+    })
+
+
+@login_required
 def useranime_bynote(request):
     useranimes = UserAnimeTable(data=UserAnime.objects.filter(user=request.user, note__isnull=False)
                                 .order_by('-note', 'anime__name'))

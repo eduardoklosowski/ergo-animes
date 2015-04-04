@@ -7,6 +7,13 @@ from django.db.models import F, Q
 from . import models
 
 
+def check_new(user):
+    return models.UserAnime.objects.filter(user=user)\
+        .exclude(status__in=('completed', 'drop'))\
+        .exclude(anime__episodes=F('episodes_pub'))\
+        .filter(Q(status='watching') | (~Q(status='watching') & Q(episodes_down__isnull=False)))
+
+
 def down(user):
     return models.UserAnime.objects.filter(user=user)\
         .exclude(status__in=('completed', 'drop'))\
