@@ -50,3 +50,7 @@ td.anime:hover .synopsis {
   padding: 4px;
   border: 1px solid #888;
 }
+
+#id_genres {
+  height: 14rem;
+}
