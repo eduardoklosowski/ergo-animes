@@ -388,7 +388,7 @@ class UserAnime(models.Model):
 
     def get_link_linkdisplay(self):
         if self.link:
-            return mark_safe('<a href="%s" target="_blank">%s</a>' % (self.link, self.link))
+            return mark_safe('<a href="%s" target="_blank">Download</a>' % self.link)
         return '-'
 
     def get_note_display(self):

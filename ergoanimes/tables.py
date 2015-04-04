@@ -97,6 +97,7 @@ class UserAnimeTable(Table):
                 'value': lambda x: x.get_fansub_linkdisplay()},
                {'name': _('Link'),
                 'class': 'show-for-large-up',
+                'header_class': 'width-6r',
                 'value': lambda x: x.get_link_linkdisplay()})
 
 
