@@ -325,19 +325,43 @@ class UserAnime(models.Model):
         return '-'
 
     def get_episodes_pub_display(self):
-        if self.episodes_pub is not None:
-            return self.episodes_pub
-        return '-'
+        episodes = self.episodes_pub or '-'
+        return '%s / %s' % (episodes, self.anime.episodes)
+
+    def get_episodes_pub_linkdisplay(self):
+        episodes = self.get_episodes_pub_display()
+        if self.episodes_pub != self.anime.episodes:
+            episodes = mark_safe('%s <a href="%s">+</a>' % (
+                episodes,
+                reverse('ergoanimes:useranime_plus', args=(self.anime.pk, 'pub')),
+            ))
+        return episodes
 
     def get_episodes_down_display(self):
-        if self.episodes_down is not None:
-            return self.episodes_down
-        return '-'
+        episodes = self.episodes_down or '-'
+        return '%s / %s' % (episodes, self.anime.episodes)
+
+    def get_episodes_down_linkdisplay(self):
+        episodes = self.get_episodes_down_display()
+        if self.episodes_down != self.anime.episodes:
+            episodes = mark_safe('%s <a href="%s">+</a>' % (
+                episodes,
+                reverse('ergoanimes:useranime_plus', args=(self.anime.pk, 'down')),
+            ))
+        return episodes
 
     def get_episodes_viewed_display(self):
-        if self.episodes_viewed is not None:
-            return self.episodes_viewed
-        return '-'
+        episodes = self.episodes_viewed or '-'
+        return '%s / %s' % (episodes, self.anime.episodes)
+
+    def get_episodes_viewed_linkdisplay(self):
+        episodes = self.get_episodes_viewed_display()
+        if self.episodes_viewed != self.anime.episodes:
+            episodes = mark_safe('%s <a href="%s">+</a>' % (
+                episodes,
+                reverse('ergoanimes:useranime_plus', args=(self.anime.pk, 'viewed')),
+            ))
+        return episodes
 
     def get_date_display(self):
         output = []

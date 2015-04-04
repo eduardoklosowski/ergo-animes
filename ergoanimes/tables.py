@@ -86,8 +86,7 @@ class UserAnimeTable(Table):
                {'name': _('Episodes'),
                 'class': 'show-for-medium-up',
                 'header_class': 'width-6r',
-                'row_class': 'text-right',
-                'value': lambda x: x.anime.get_episodes_display()},
+                'value': lambda x: x.get_episodes_viewed_linkdisplay()},
                {'name': _('Status'),
                 'header_class': 'width-6r',
                 'value': lambda x: x.get_status_display()},
@@ -104,3 +103,19 @@ class UserAnimeStatusTable(UserAnimeTable):
         self.columns = list(self.columns)
         self.columns.pop(5)
         super(UserAnimeStatusTable, self).__init__(*args, **kwargs)
+
+
+class UserAnimeDownTable(UserAnimeTable):
+    def __init__(self, *args, **kwargs):
+        self.columns = list(self.columns)
+        self.columns[4] = self.columns[4].copy()
+        self.columns[4]['value'] = lambda x: x.get_episodes_down_linkdisplay()
+        super(UserAnimeDownTable, self).__init__(*args, **kwargs)
+
+
+class UserAnimePubTable(UserAnimeTable):
+    def __init__(self, *args, **kwargs):
+        self.columns = list(self.columns)
+        self.columns[4] = self.columns[4].copy()
+        self.columns[4]['value'] = lambda x: x.get_episodes_pub_linkdisplay()
+        super(UserAnimePubTable, self).__init__(*args, **kwargs)

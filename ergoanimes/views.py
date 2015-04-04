@@ -5,7 +5,8 @@ from __future__ import unicode_literals
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.views import redirect_to_login
-from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist, ValidationError
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import ugettext as _
 from ergo.genericview import DeleteView
@@ -13,7 +14,9 @@ from ergo.genericview import DeleteView
 from . import reports
 from .forms import AnimeForm, FansubForm, UserAnimeForm
 from .models import Anime, Fansub, Genre, UserAnime, CHOICES_STATUS
-from .tables import AnimeTable, FansubTable, GenreTable, UserAnimeTable, UserAnimeStatusTable
+from .tables import (AnimeTable, FansubTable, GenreTable, UserAnimeTable, UserAnimeStatusTable,
+                     UserAnimeDownTable, UserAnimePubTable)
+from .utils import add_down, add_pub, add_viewed
 
 
 # Anime
@@ -182,9 +185,9 @@ def useranime_reports(request):
     return render(request, 'ergoanimes/useranime_status.html', {
         'tables': (
             ('watch', _('Watch'), UserAnimeTable(data=reports.watch(request.user))),
-            ('down', _('Down'), UserAnimeTable(data=reports.down(request.user))),
+            ('down', _('Down'), UserAnimeDownTable(data=reports.down(request.user))),
             ('new-watch', _('New for Watch'), UserAnimeTable(data=reports.new_watch(request.user))),
-            ('new-down', _('New for Down'), UserAnimeTable(data=reports.new_down(request.user))),
+            ('new-down', _('New for Down'), UserAnimeDownTable(data=reports.new_down(request.user))),
         ),
     })
 
@@ -192,7 +195,7 @@ def useranime_reports(request):
 @login_required
 def useranime_check(request):
     return render(request, 'ergoanimes/useranime_list.html', {
-        'useranimes': UserAnimeTable(data=reports.check_new(request.user)),
+        'useranimes': UserAnimePubTable(data=reports.check_new(request.user)),
     })
 
 
@@ -248,3 +251,24 @@ class UserAnimeDeleteView(DeleteView):
 
 
 useranime_delete = UserAnimeDeleteView.as_view()
+
+
+@login_required
+def useranime_plus(request, pk, episode_type):
+    useranime = get_object_or_404(UserAnime, user=request.user, anime__pk=pk)
+    try:
+        if episode_type == 'pub':
+            add_pub(useranime)
+        elif episode_type == 'down':
+            add_down(useranime)
+        elif episode_type == 'viewed':
+            add_viewed(useranime)
+        else:
+            return HttpResponse(_('Episode type not identify'), status=406)
+        useranime.clean()
+        useranime.save()
+        if 'HTTP_REFERER' in request.META:
+            return redirect(request.META['HTTP_REFERER'])
+        return HttpResponse(status=204)
+    except ValidationError as e:
+        return HttpResponse('\n'.join(e.messages), status=406)

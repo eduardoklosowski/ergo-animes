@@ -40,9 +40,9 @@
                 <li>
                   <strong>{% trans 'Episodes' %}:</strong>
                   <ul class="square">
-                    <li><strong>{% trans 'Published' %}:</strong> {{ useranime.get_episodes_pub_display }}</li>
-                    <li><strong>{% trans 'Downloaded' %}:</strong> {{ useranime.get_episodes_down_display }}</li>
-                    <li><strong>{% trans 'Viewed' %}:</strong> {{ useranime.get_episodes_viewed_display }}</li>
+                    <li><strong>{% trans 'Published' %}:</strong> {{ useranime.get_episodes_pub_linkdisplay }}</li>
+                    <li><strong>{% trans 'Downloaded' %}:</strong> {{ useranime.get_episodes_down_linkdisplay }}</li>
+                    <li><strong>{% trans 'Viewed' %}:</strong> {{ useranime.get_episodes_viewed_linkdisplay }}</li>
                   </ul>
                 </li>
                 <li><strong>{% trans 'Times Watched' %}:</strong> {{ useranime.times }}</li>
