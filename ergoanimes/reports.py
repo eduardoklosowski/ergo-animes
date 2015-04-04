@@ -30,6 +30,11 @@ def new_watch(user):
         .filter(status='new', episodes_down=F('anime__episodes'))
 
 
+def viewed_hd(user):
+    return apps.get_model('ergoanimes', 'UserAnime').objects.filter(user=user)\
+        .filter(status='completed', episodes_down__gt=0)
+
+
 def watch(user):
     return apps.get_model('ergoanimes', 'UserAnime').objects.filter(user=user)\
         .filter(status__in=('watching', 'hold'), episodes_viewed__lt=F('episodes_down'))

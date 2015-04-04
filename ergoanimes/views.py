@@ -212,6 +212,13 @@ def useranime_bynote(request):
 
 
 @login_required
+def useranime_viewedhd(request):
+    return render(request, 'ergoanimes/useranime_list.html', {
+        'useranimes': UserAnimeStatusTable(data=reports.viewed_hd(request.user)),
+    })
+
+
+@login_required
 def useranime_form(request, pk):
     anime = Anime.objects.get(pk=pk)
     try:
