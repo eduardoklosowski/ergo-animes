@@ -4,7 +4,7 @@
 
 {% block content %}
   <section role="application" class="content">
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
       {% csrf_token %}
       {{ form.as_foundation }}
       <div class="row">
