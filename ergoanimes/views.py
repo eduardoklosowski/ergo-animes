@@ -10,6 +10,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import ugettext as _
 from ergo.genericview import DeleteView
 
+from . import reports
 from .forms import AnimeForm, FansubForm, UserAnimeForm
 from .models import Anime, Fansub, Genre, UserAnime, CHOICES_STATUS
 from .tables import AnimeTable, FansubTable, GenreTable, UserAnimeTable, UserAnimeStatusTable
@@ -173,6 +174,18 @@ def useranime_status(request):
     status.append(status.pop(0))
     return render(request, 'ergoanimes/useranime_status.html', {
         'tables': [(s[0], s[1], UserAnimeStatusTable(data=useranimes.filter(status=s[0]))) for s in status],
+    })
+
+
+@login_required
+def useranime_reports(request):
+    return render(request, 'ergoanimes/useranime_status.html', {
+        'tables': (
+            ('watch', _('Watch'), UserAnimeTable(data=reports.watch(request.user))),
+            ('down', _('Down'), UserAnimeTable(data=reports.down(request.user))),
+            ('new-watch', _('New for Watch'), UserAnimeTable(data=reports.new_watch(request.user))),
+            ('new-down', _('New for Down'), UserAnimeTable(data=reports.new_down(request.user))),
+        ),
     })
 
 

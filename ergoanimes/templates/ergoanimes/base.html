@@ -28,6 +28,15 @@
               <li><a href="{% url 'ergoanimes:useranime_status' %}#new">{% trans 'New' %}</a></li>
             </ul>
           </li>
+          <li class="has-dropdown">
+            <a href="{% url 'ergoanimes:useranime_reports' %}">{% trans 'Reports' %}</a>
+            <ul class="dropdown">
+              <li><a href="{% url 'ergoanimes:useranime_reports' %}#watch">{% trans 'Watch' %}</a></li>
+              <li><a href="{% url 'ergoanimes:useranime_reports' %}#down">{% trans 'Down' %}</a></li>
+              <li><a href="{% url 'ergoanimes:useranime_reports' %}#new-watch">{% trans 'New for Watch' %}</a></li>
+              <li><a href="{% url 'ergoanimes:useranime_reports' %}#new-down">{% trans 'New for Down' %}</a></li>
+            </ul>
+          </li>
           <li><a href="{% url 'ergoanimes:useranime_bynote' %}">{% trans 'By note' %}</a></li>
           <li><a href="{% url 'ergoanimes:useranime_list' %}">{% trans 'All' %}</a></li>
         </ul>
