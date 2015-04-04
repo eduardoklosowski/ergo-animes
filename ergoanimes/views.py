@@ -152,7 +152,8 @@ fansub_delete = permission_required('ergoanimes.delete_fansub')(
 @login_required
 def genre_list(request):
     return render(request, 'ergoanimes/genre_list.html', {
-        'genres': GenreTable(data=Genre.objects.all(), data_extra={'user': request.user}),
+        'genres': GenreTable(data=sorted(Genre.objects.all(), key=lambda x: x.get_genre_display()),
+                             data_extra={'user': request.user}),
     })
 
 
