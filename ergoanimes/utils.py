@@ -5,6 +5,33 @@ from __future__ import unicode_literals
 from datetime import date
 
 
+def add_down(useranime):
+    if useranime.episodes_down is None:
+        useranime.episodes_down = 0
+    useranime.episodes_down += 1
+
+
+def add_pub(useranime):
+    if useranime.episodes_pub is None:
+        useranime.episodes_pub = 0
+    useranime.episodes_pub += 1
+
+
+def add_viewed(useranime):
+    if useranime.episodes_viewed is None:
+        useranime.episodes_viewed = 0
+    useranime.episodes_viewed += 1
+    if useranime.episodes_viewed == 1 and useranime.status in ('new', 'watching', 'hold'):
+        useranime.status = 'watching'
+        if not useranime.date_start:
+            useranime.date_start = date.today()
+    if useranime.anime.episodes and useranime.episodes_viewed == useranime.anime.episodes:
+        useranime.status = 'completed'
+        useranime.times += 1
+        if not useranime.date_end:
+            useranime.date_end = date.today()
+
+
 def calc_season_end(air_date):
     if not air_date:
         return None

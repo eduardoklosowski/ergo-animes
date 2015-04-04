@@ -32,6 +32,7 @@ url_list = [
     url(r'^anime/note/$', views.useranime_bynote, name='useranime_bynote'),
     url(r'^anime/(?P<pk>\d+)/user/$', views.useranime_form, name='useranime_form'),
     url(r'^anime/(?P<pk>\d+)/user/delete/$', views.useranime_delete, name='useranime_delete'),
+    url(r'^anime/(?P<pk>\d+)/plus/(?P<episode_type>\w+)/$', views.useranime_plus, name='useranime_plus'),
 ]
 
 urlpatterns = [
