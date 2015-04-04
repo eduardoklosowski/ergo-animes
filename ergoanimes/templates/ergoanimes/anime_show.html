@@ -26,7 +26,7 @@
               {% if perms.ergoanimes.delete_anime %}
                 <li><a href="{% url 'ergoanimes:anime_delete' anime.pk %}">{% trans 'Delete' %}</a></li>
               {% endif %}
-              {% if anime.synopsis %}<li><strong>{% trans 'Synopsis' %}:</strong> {{ anime.synopsis }}</li>{% endif %}
+              {% if anime.synopsis %}<li><strong>{% trans 'Synopsis' %}:</strong> {{ anime.synopsis|linebreaksbr }}</li>{% endif %}
             </ul>
           </div>
           <div class="small-12 medium-6 columns">
