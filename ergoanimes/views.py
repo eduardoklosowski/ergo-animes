@@ -23,8 +23,11 @@ from .utils import add_down, add_pub, add_viewed
 
 @login_required
 def anime_list(request):
+    animes = Anime.objects
+    for word in request.GET.get('anime', '').split():
+        animes = animes.filter(name__icontains=word)
     return render(request, 'ergoanimes/anime_list.html', {
-        'animes': AnimeTable(data=Anime.objects.all(), data_extra={'user': request.user}),
+        'animes': AnimeTable(data=animes.all(), data_extra={'user': request.user}),
     })
 
 

@@ -67,4 +67,17 @@
   </li>
   <li class="divider"></li>
   <li><a href="{% url 'ergoanimes:genre_list' %}">{% trans 'Genres' %}</a></li>
+  <li class="divider"></li>
+  <li class="has-form">
+    <form action="{% url 'ergoanimes:anime_list' %}">
+      <div class="row collapse">
+        <div class="small-9 medium-12 large-8 columns">
+          <input type="text" name="anime" placeholder="{% trans 'Anime' %}">
+        </div>
+        <div class="small-3 large-4 hide-for-medium columns">
+          <button type="submit">{% trans 'Search' %}</button>
+        </div>
+      </div>
+    </form>
+  </li>
 {% endblock %}
