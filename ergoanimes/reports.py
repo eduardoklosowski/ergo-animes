@@ -23,7 +23,7 @@ def down(user):
 def new_down(user):
     return apps.get_model('ergoanimes', 'UserAnime').objects.filter(user=user)\
         .filter(status='new', episodes_pub=F('anime__episodes'))\
-        .filter(~Q(episodes_pub=F('episodes_down')))
+        .filter(Q(episodes_down__isnull=True) | ~Q(episodes_pub=F('episodes_down')))
 
 
 def new_watch(user):
