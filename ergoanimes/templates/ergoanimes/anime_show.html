@@ -50,7 +50,7 @@
                 <li><strong>{% trans 'Link' %}:</strong> {{ useranime.get_link_linkdisplay }}</li>
                 <li><a href="{% url 'ergoanimes:useranime_form' anime.pk %}">{% trans 'Edit' %}</a></li>
                 <li><a href="{% url 'ergoanimes:useranime_delete' anime.pk %}">{% trans 'Delete' %}</a></li>
-                {% if useranime.comment %}<li><strong>{% trans 'Comment' %}:</strong> {{ useranime.comment }}</li>{% endif %}
+                {% if useranime.comment %}<li><strong>{% trans 'Comment' %}:</strong> {{ useranime.comment|linebreaksbr }}</li>{% endif %}
               </ul>
             {% else %}
               <a href="{% url 'ergoanimes:useranime_form' anime.pk %}">{% trans 'Add to my list' %}</a>
