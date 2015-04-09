@@ -11,6 +11,7 @@ url_list = [
     url(r'^$', views.anime_list, name='index'),
 
     url(r'^anime/$', views.anime_list, name='anime_list'),
+    url(r'^anime/season/$', views.anime_byseason, name='anime_byseason'),
     url(r'^anime/add/$', views.anime_form, name='anime_add'),
     url(r'^anime/(?P<pk>\d+)/$', views.anime_show, name='anime'),
     url(r'^anime/(?P<pk>\d+)/edit/$', views.anime_form, name='anime_edit'),

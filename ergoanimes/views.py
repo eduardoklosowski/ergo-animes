@@ -2,6 +2,7 @@
 
 from __future__ import unicode_literals
 
+from collections import defaultdict
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.views import redirect_to_login
@@ -28,6 +29,16 @@ def anime_list(request):
         animes = animes.filter(name__icontains=word)
     return render(request, 'ergoanimes/anime_list.html', {
         'animes': AnimeTable(data=animes.all(), data_extra={'user': request.user}),
+    })
+
+
+@login_required
+def anime_byseason(request):
+    animes_byseason = defaultdict(list)
+    for anime in Anime.objects.filter(season_start__isnull=False):
+        animes_byseason[anime.season_start].append(anime)
+    return render(request, 'ergoanimes/useranime_status.html', {
+        'tables': [('', i.strftime('%B/%Y'), AnimeTable(data=animes_byseason[i], data_extra={'user': request.user})) for i in sorted(animes_byseason, reverse=True)],
     })
 
 

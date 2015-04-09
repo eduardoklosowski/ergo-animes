@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ergoanimes\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-04 14:22-0300\n"
+"POT-Creation-Date: 2015-04-09 14:01-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Eduardo Augusto Klosowski <eduardo_klosowski@yahoo.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,683 +17,675 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: ergoanimes/apps.py:15
+#: apps.py:15
 msgid "Ergo Animes"
 msgstr "Ergo Animes"
 
-#: ergoanimes/apps.py:18 ergoanimes/tables.py:65
-#: ergoanimes/templates/ergoanimes/base.html:6
-#: ergoanimes/templates/ergoanimes/base.html:21
-#: ergoanimes/templates/ergoanimes/genre_show.html:14
+#: apps.py:18 tables.py:65 templates/ergoanimes/base.html:6
+#: templates/ergoanimes/base.html.py:21
+#: templates/ergoanimes/genre_show.html:14
 msgid "Animes"
 msgstr "Animes"
 
-#: ergoanimes/apps.py:24 ergoanimes/templates/ergoanimes/base.html:39
-#: ergoanimes/views.py:191
+#: apps.py:24 templates/ergoanimes/base.html:39 views.py:202
 msgid "Watch"
 msgstr "Assistir"
 
-#: ergoanimes/apps.py:25 ergoanimes/templates/ergoanimes/base.html:40
-#: ergoanimes/views.py:192
+#: apps.py:25 templates/ergoanimes/base.html:40 views.py:203
 msgid "Down"
 msgstr "Baixar"
 
-#: ergoanimes/forms.py:29
+#: forms.py:29
 msgid "Dates"
 msgstr "Datas"
 
-#: ergoanimes/forms.py:61 ergoanimes/tables.py:17 ergoanimes/tables.py:88
-#: ergoanimes/templates/ergoanimes/anime_show.html:20
-#: ergoanimes/templates/ergoanimes/anime_show.html:41
+#: forms.py:61 tables.py:17 tables.py:88
+#: templates/ergoanimes/anime_show.html:20
+#: templates/ergoanimes/anime_show.html:41
 msgid "Episodes"
 msgstr "Episódios"
 
-#: ergoanimes/forms.py:62
+#: forms.py:62
 msgid "Date"
 msgstr "Data"
 
-#: ergoanimes/models.py:20
+#: models.py:20
 msgid "Action"
 msgstr "Ação"
 
-#: ergoanimes/models.py:21
+#: models.py:21
 msgid "Adventure"
 msgstr "Aventura"
 
-#: ergoanimes/models.py:22
+#: models.py:22
 msgid "Cars"
 msgstr "Carros"
 
-#: ergoanimes/models.py:23
+#: models.py:23
 msgid "Comedy"
 msgstr "Comédia"
 
-#: ergoanimes/models.py:24
+#: models.py:24
 msgid "Dementia"
 msgstr "Demencia"
 
-#: ergoanimes/models.py:25
+#: models.py:25
 msgid "Demons"
 msgstr "Demônios"
 
-#: ergoanimes/models.py:26
+#: models.py:26
 msgid "Drama"
 msgstr "Drama"
 
-#: ergoanimes/models.py:27
+#: models.py:27
 msgid "Ecchi"
 msgstr "Ecchi"
 
-#: ergoanimes/models.py:28
+#: models.py:28
 msgid "Fantasy"
 msgstr "Fantasia"
 
-#: ergoanimes/models.py:29
+#: models.py:29
 msgid "Game"
 msgstr "Jogo"
 
-#: ergoanimes/models.py:30
+#: models.py:30
 msgid "Harem"
 msgstr "Harém"
 
-#: ergoanimes/models.py:31
+#: models.py:31
 msgid "Hentai"
 msgstr "Hentai"
 
-#: ergoanimes/models.py:32
+#: models.py:32
 msgid "Historical"
 msgstr "Histórico"
 
-#: ergoanimes/models.py:33
+#: models.py:33
 msgid "Horror"
 msgstr "Horror"
 
-#: ergoanimes/models.py:34
+#: models.py:34
 msgid "Josei"
 msgstr "Josei"
 
-#: ergoanimes/models.py:35
+#: models.py:35
 msgid "Kids"
 msgstr "Crianças"
 
-#: ergoanimes/models.py:36
+#: models.py:36
 msgid "Magic"
 msgstr "Mágica"
 
-#: ergoanimes/models.py:37
+#: models.py:37
 msgid "Martial Arts"
 msgstr "Artes Marciais"
 
-#: ergoanimes/models.py:38
+#: models.py:38
 msgid "Mecha"
 msgstr "Mecha"
 
-#: ergoanimes/models.py:39
+#: models.py:39
 msgid "Military"
 msgstr "Militar"
 
-#: ergoanimes/models.py:40
+#: models.py:40
 msgid "Music"
 msgstr "Música"
 
-#: ergoanimes/models.py:41
+#: models.py:41
 msgid "Mystery"
 msgstr "Mistério"
 
-#: ergoanimes/models.py:42
+#: models.py:42
 msgid "Parody"
 msgstr "Paródia"
 
-#: ergoanimes/models.py:43
+#: models.py:43
 msgid "Police"
 msgstr "Policial"
 
-#: ergoanimes/models.py:44
+#: models.py:44
 msgid "Psychological"
 msgstr "Psicológico"
 
-#: ergoanimes/models.py:45
+#: models.py:45
 msgid "Romance"
 msgstr "Romance"
 
-#: ergoanimes/models.py:46
+#: models.py:46
 msgid "Samurai"
 msgstr "Samurai"
 
-#: ergoanimes/models.py:47
+#: models.py:47
 msgid "School"
 msgstr "Escola"
 
-#: ergoanimes/models.py:48
+#: models.py:48
 msgid "Sci-Fi"
 msgstr "Sci-Fi"
 
-#: ergoanimes/models.py:49
+#: models.py:49
 msgid "Seinen"
 msgstr "Seinen"
 
-#: ergoanimes/models.py:50
+#: models.py:50
 msgid "Shoujo"
 msgstr "Shoujo"
 
-#: ergoanimes/models.py:51
+#: models.py:51
 msgid "Shoujo Ai"
 msgstr "Shoujo Ai"
 
-#: ergoanimes/models.py:52
+#: models.py:52
 msgid "Shounen"
 msgstr "Shounen"
 
-#: ergoanimes/models.py:53
+#: models.py:53
 msgid "Shounen Ai"
 msgstr "Shounen Ai"
 
-#: ergoanimes/models.py:54
+#: models.py:54
 msgid "Slice of Life"
 msgstr "Slice of Life"
 
-#: ergoanimes/models.py:55
+#: models.py:55
 msgid "Space"
 msgstr "Espacial"
 
-#: ergoanimes/models.py:56
+#: models.py:56
 msgid "Sports"
 msgstr "Esporte"
 
-#: ergoanimes/models.py:57
+#: models.py:57
 msgid "Super Power"
 msgstr "Super Poder"
 
-#: ergoanimes/models.py:58
+#: models.py:58
 msgid "Supernatural"
 msgstr "Sobrenatural"
 
-#: ergoanimes/models.py:59
+#: models.py:59
 msgid "Thriller"
 msgstr "Suspense"
 
-#: ergoanimes/models.py:60
+#: models.py:60
 msgid "Vampire"
 msgstr "Vampiro"
 
-#: ergoanimes/models.py:61
+#: models.py:61
 msgid "Yaoi"
 msgstr "Yaoi"
 
-#: ergoanimes/models.py:62
+#: models.py:62
 msgid "Yuri"
 msgstr "Yuri"
 
-#: ergoanimes/models.py:67 ergoanimes/models.py:79
+#: models.py:67 models.py:79
 msgid "TV"
 msgstr "TV"
 
-#: ergoanimes/models.py:68
+#: models.py:68
 msgid "Special"
 msgstr "Especial"
 
-#: ergoanimes/models.py:69
+#: models.py:69
 msgid "OVA"
 msgstr "OVA"
 
-#: ergoanimes/models.py:70
+#: models.py:70
 msgid "Movie"
 msgstr "Filme"
 
-#: ergoanimes/models.py:71
+#: models.py:71
 msgid "ONA"
 msgstr "ONA"
 
-#: ergoanimes/models.py:76
+#: models.py:76
 msgid "Blu-ray"
 msgstr "Blu-ray"
 
-#: ergoanimes/models.py:77
+#: models.py:77
 msgid "HDTV"
 msgstr "HDTV"
 
-#: ergoanimes/models.py:78
+#: models.py:78
 msgid "DVD"
 msgstr "DVD"
 
-#: ergoanimes/models.py:80
+#: models.py:80
 msgid "Web"
 msgstr "Web"
 
-#: ergoanimes/models.py:84 ergoanimes/templates/ergoanimes/base.html:33
+#: models.py:84 templates/ergoanimes/base.html:33
 msgid "New"
 msgstr "Novo"
 
-#: ergoanimes/models.py:85 ergoanimes/templates/ergoanimes/base.html:29
+#: models.py:85 templates/ergoanimes/base.html:29
 msgid "Watching"
 msgstr "Assistindo"
 
-#: ergoanimes/models.py:86 ergoanimes/templates/ergoanimes/base.html:30
+#: models.py:86 templates/ergoanimes/base.html:30
 msgid "Hold"
 msgstr "Espera"
 
-#: ergoanimes/models.py:87 ergoanimes/templates/ergoanimes/base.html:31
+#: models.py:87 templates/ergoanimes/base.html:31
 msgid "Completed"
 msgstr "Completo"
 
-#: ergoanimes/models.py:88 ergoanimes/templates/ergoanimes/base.html:32
+#: models.py:88 templates/ergoanimes/base.html:32
 msgid "Drop"
 msgstr "Drop"
 
-#: ergoanimes/models.py:99 ergoanimes/models.py:205
+#: models.py:99 models.py:205
 msgid "name"
 msgstr "nome"
 
-#: ergoanimes/models.py:100
+#: models.py:100
 msgid "type"
 msgstr "tipo"
 
-#: ergoanimes/models.py:101 ergoanimes/models.py:209
+#: models.py:101 models.py:209
 msgid "image"
 msgstr "imagem"
 
-#: ergoanimes/models.py:102
+#: models.py:102
 msgid "episodes"
 msgstr "episódios"
 
-#: ergoanimes/models.py:103
+#: models.py:103
 msgid "duration"
 msgstr "duração"
 
-#: ergoanimes/models.py:104
+#: models.py:104
 msgid "start air"
 msgstr "transmitido em"
 
-#: ergoanimes/models.py:105
+#: models.py:105
 msgid "end air"
 msgstr "transmitido até"
 
-#: ergoanimes/models.py:106
+#: models.py:106
 msgid "start season"
 msgstr "sessão em"
 
-#: ergoanimes/models.py:107
+#: models.py:107
 msgid "end season"
 msgstr "sessão até"
 
-#: ergoanimes/models.py:108 ergoanimes/models.py:164 ergoanimes/models.py:262
+#: models.py:108 models.py:164 models.py:262
 msgid "genres"
 msgstr "gênero"
 
-#: ergoanimes/models.py:109
+#: models.py:109
 msgid "MyAnimeList ID"
 msgstr "MyAnimeList ID"
 
-#: ergoanimes/models.py:110
+#: models.py:110
 msgid "AniDB ID"
 msgstr "AniDB ID"
 
-#: ergoanimes/models.py:111
+#: models.py:111
 msgid "synopsis"
 msgstr "sinopse"
 
-#: ergoanimes/models.py:115 ergoanimes/models.py:283
+#: models.py:115 models.py:283
 msgid "anime"
 msgstr "anime"
 
-#: ergoanimes/models.py:116
+#: models.py:116
 msgid "animes"
 msgstr "animes"
 
-#: ergoanimes/models.py:147
+#: models.py:147
 msgid "Has image?"
 msgstr "Tem imagem?"
 
-#: ergoanimes/models.py:194
+#: models.py:194
 msgid "Has synopsis?"
 msgstr "Tem sinopse?"
 
-#: ergoanimes/models.py:206
+#: models.py:206
 msgid "site"
 msgstr "site"
 
-#: ergoanimes/models.py:207 ergoanimes/tables.py:45
-#: ergoanimes/templates/ergoanimes/fansub_show.html:17
+#: models.py:207 tables.py:45 templates/ergoanimes/fansub_show.html:17
 msgid "IRC"
 msgstr "IRC"
 
-#: ergoanimes/models.py:208
+#: models.py:208
 msgid "active"
 msgstr "ativo"
 
-#: ergoanimes/models.py:213 ergoanimes/models.py:285
+#: models.py:213 models.py:285
 msgid "fansub"
 msgstr "fansub"
 
-#: ergoanimes/models.py:214
+#: models.py:214
 msgid "fansubs"
 msgstr "fansubs"
 
-#: ergoanimes/models.py:243
+#: models.py:243
 msgid "Yes"
 msgstr "Sim"
 
-#: ergoanimes/models.py:244
+#: models.py:244
 msgid "No"
 msgstr "Não"
 
-#: ergoanimes/models.py:249
+#: models.py:249
 msgid "has image?"
 msgstr "tem imagem?"
 
-#: ergoanimes/models.py:257 ergoanimes/models.py:261
+#: models.py:257 models.py:261
 msgid "genre"
 msgstr "gênero"
 
-#: ergoanimes/models.py:282
+#: models.py:282
 msgid "user"
 msgstr "usuário"
 
-#: ergoanimes/models.py:284
+#: models.py:284
 msgid "status"
 msgstr "status"
 
-#: ergoanimes/models.py:286
+#: models.py:286
 msgid "quality"
 msgstr "qualidade"
 
-#: ergoanimes/models.py:287
+#: models.py:287
 msgid "resolution"
 msgstr "resolução"
 
-#: ergoanimes/models.py:288
+#: models.py:288
 msgid "published"
 msgstr "publicado"
 
-#: ergoanimes/models.py:289
+#: models.py:289
 msgid "download"
 msgstr "baixado"
 
-#: ergoanimes/models.py:290
+#: models.py:290
 msgid "viewed"
 msgstr "visto"
 
-#: ergoanimes/models.py:291
+#: models.py:291
 msgid "times watched"
 msgstr "vezes visto"
 
-#: ergoanimes/models.py:292
+#: models.py:292
 msgid "start in"
 msgstr "visto em"
 
-#: ergoanimes/models.py:293
+#: models.py:293
 msgid "end in"
 msgstr "visto até"
 
-#: ergoanimes/models.py:294
+#: models.py:294
 msgid "link"
 msgstr "link"
 
-#: ergoanimes/models.py:295
+#: models.py:295
 msgid "note"
 msgstr "nota"
 
-#: ergoanimes/models.py:297
+#: models.py:297
 msgid "comment"
 msgstr "comentário"
 
-#: ergoanimes/models.py:302
+#: models.py:302
 msgid "user anime"
 msgstr "anime do usuário"
 
-#: ergoanimes/models.py:303
+#: models.py:303
 msgid "users animes"
 msgstr "animes dos usuários"
 
-#: ergoanimes/models.py:313
+#: models.py:313
 msgid "How many times this anime was watched?"
 msgstr "Quantas vezes este anime foi visto?"
 
-#: ergoanimes/models.py:315
+#: models.py:315
 msgid "End date can be more than start"
 msgstr "Data de termino não pode ser maior que de início"
 
-#: ergoanimes/models.py:319
+#: models.py:319
 #, python-format
 msgid "Published episodes more than %(episodes)d"
 msgstr "Episódios publicados maior que %(episodes)d"
 
-#: ergoanimes/models.py:321
+#: models.py:321
 #, python-format
 msgid "Download episodes more than %(episodes)d"
 msgstr "Episódios publicados maior que %(episodes)d"
 
-#: ergoanimes/models.py:323
+#: models.py:323
 #, python-format
 msgid "Viewed episodes more than %(episodes)d"
 msgstr "Episódios publicados maior que %(episodes)d"
 
-#: ergoanimes/models.py:387
+#: models.py:384
 #, python-format
 msgid "%(date_start)s to %(date_end)s"
 msgstr "%(date_start)s até %(date_end)s"
 
-#: ergoanimes/tables.py:10 ergoanimes/tables.py:72
-#: ergoanimes/templates/ergoanimes/base.html:76
+#: tables.py:10 tables.py:72 templates/ergoanimes/base.html:77
 msgid "Anime"
 msgstr "Anime"
 
-#: ergoanimes/tables.py:13 ergoanimes/tables.py:75
-#: ergoanimes/templates/ergoanimes/anime_show.html:18
+#: tables.py:13 tables.py:75 templates/ergoanimes/anime_show.html:18
 msgid "Type"
 msgstr "Tipo"
 
-#: ergoanimes/tables.py:22 ergoanimes/tables.py:79
-#: ergoanimes/templates/ergoanimes/anime_show.html:19
+#: tables.py:22 tables.py:79 templates/ergoanimes/anime_show.html:19
 msgid "Season"
 msgstr "Temporada"
 
-#: ergoanimes/tables.py:26 ergoanimes/templates/ergoanimes/anime_show.html:21
-#: ergoanimes/templates/ergoanimes/base.html:70
+#: tables.py:26 templates/ergoanimes/anime_show.html:21
+#: templates/ergoanimes/base.html:71
 msgid "Genres"
 msgstr "Gêneros"
 
-#: ergoanimes/tables.py:29 ergoanimes/tables.py:92
-#: ergoanimes/templates/ergoanimes/anime_show.html:35
-#: ergoanimes/templates/ergoanimes/base.html:27
+#: tables.py:29 tables.py:92 templates/ergoanimes/anime_show.html:35
+#: templates/ergoanimes/base.html:27
 msgid "Status"
 msgstr "Status"
 
-#: ergoanimes/tables.py:33 ergoanimes/templates/ergoanimes/anime_show.html:22
+#: tables.py:33 templates/ergoanimes/anime_show.html:22
 msgid "Links"
 msgstr "Links"
 
-#: ergoanimes/tables.py:40 ergoanimes/tables.py:95
-#: ergoanimes/templates/ergoanimes/anime_show.html:36
+#: tables.py:40 tables.py:95 templates/ergoanimes/anime_show.html:36
 msgid "Fansub"
 msgstr "Fansub"
 
-#: ergoanimes/tables.py:42 ergoanimes/templates/ergoanimes/fansub_show.html:16
+#: tables.py:42 templates/ergoanimes/fansub_show.html:16
 msgid "Site"
 msgstr "Site"
 
-#: ergoanimes/tables.py:48 ergoanimes/templates/ergoanimes/fansub_show.html:18
+#: tables.py:48 templates/ergoanimes/fansub_show.html:18
 msgid "Active"
 msgstr "Ativo"
 
-#: ergoanimes/tables.py:51 ergoanimes/tables.py:61
-#: ergoanimes/templates/ergoanimes/base.html:24
+#: tables.py:51 tables.py:61 templates/ergoanimes/base.html:24
 msgid "My List"
 msgstr "Minha Lista"
 
-#: ergoanimes/tables.py:59
+#: tables.py:59
 msgid "Genre"
 msgstr "Gênero"
 
-#: ergoanimes/tables.py:83 ergoanimes/templates/ergoanimes/anime_show.html:39
+#: tables.py:83 templates/ergoanimes/anime_show.html:39
 msgid "Note"
 msgstr "Nota"
 
-#: ergoanimes/tables.py:98 ergoanimes/templates/ergoanimes/anime_show.html:50
+#: tables.py:98 templates/ergoanimes/anime_show.html:50
 msgid "Link"
 msgstr "Link"
 
-#: ergoanimes/templates/ergoanimes/anime_form.html:13
-#: ergoanimes/templates/ergoanimes/anime_show.html:27
-#: ergoanimes/templates/ergoanimes/anime_show.html:52
-#: ergoanimes/templates/ergoanimes/fansub_form.html:13
-#: ergoanimes/templates/ergoanimes/fansub_show.html:23
-#: ergoanimes/templates/ergoanimes/pag_delete.html:10
-#: ergoanimes/templates/ergoanimes/useranime_form.html:14
+#: templates/ergoanimes/anime_form.html:13
+#: templates/ergoanimes/anime_show.html:27
+#: templates/ergoanimes/anime_show.html:52
+#: templates/ergoanimes/fansub_form.html:13
+#: templates/ergoanimes/fansub_show.html:23
+#: templates/ergoanimes/pag_delete.html:10
+#: templates/ergoanimes/useranime_form.html:14
 msgid "Delete"
 msgstr "Apagar"
 
-#: ergoanimes/templates/ergoanimes/anime_form.html:17
-#: ergoanimes/templates/ergoanimes/fansub_form.html:17
-#: ergoanimes/templates/ergoanimes/pag_delete.html:9
-#: ergoanimes/templates/ergoanimes/useranime_form.html:18
+#: templates/ergoanimes/anime_form.html:17
+#: templates/ergoanimes/fansub_form.html:17
+#: templates/ergoanimes/pag_delete.html:9
+#: templates/ergoanimes/useranime_form.html:18
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: ergoanimes/templates/ergoanimes/anime_form.html:18
-#: ergoanimes/templates/ergoanimes/fansub_form.html:18
-#: ergoanimes/templates/ergoanimes/useranime_form.html:19
+#: templates/ergoanimes/anime_form.html:18
+#: templates/ergoanimes/fansub_form.html:18
+#: templates/ergoanimes/useranime_form.html:19
 msgid "Save"
 msgstr "Salvar"
 
-#: ergoanimes/templates/ergoanimes/anime_show.html:24
-#: ergoanimes/templates/ergoanimes/anime_show.html:51
-#: ergoanimes/templates/ergoanimes/fansub_show.html:20
+#: templates/ergoanimes/anime_show.html:24
+#: templates/ergoanimes/anime_show.html:51
+#: templates/ergoanimes/fansub_show.html:20
 msgid "Edit"
 msgstr "Editar"
 
-#: ergoanimes/templates/ergoanimes/anime_show.html:29
+#: templates/ergoanimes/anime_show.html:29
 msgid "Synopsis"
 msgstr "Sinopse"
 
-#: ergoanimes/templates/ergoanimes/anime_show.html:37
+#: templates/ergoanimes/anime_show.html:37
 msgid "Quality"
 msgstr "Qualidade"
 
-#: ergoanimes/templates/ergoanimes/anime_show.html:38
+#: templates/ergoanimes/anime_show.html:38
 msgid "Resolution"
 msgstr "Resolução"
 
-#: ergoanimes/templates/ergoanimes/anime_show.html:43
+#: templates/ergoanimes/anime_show.html:43
 msgid "Published"
 msgstr "Publicados"
 
-#: ergoanimes/templates/ergoanimes/anime_show.html:44
+#: templates/ergoanimes/anime_show.html:44
 msgid "Downloaded"
 msgstr "Baixados"
 
-#: ergoanimes/templates/ergoanimes/anime_show.html:45
+#: templates/ergoanimes/anime_show.html:45
 msgid "Viewed"
 msgstr "Vistos"
 
-#: ergoanimes/templates/ergoanimes/anime_show.html:48
+#: templates/ergoanimes/anime_show.html:48
 msgid "Times Watched"
 msgstr "Vezes Visto"
 
-#: ergoanimes/templates/ergoanimes/anime_show.html:49
+#: templates/ergoanimes/anime_show.html:49
 msgid "Watch in"
 msgstr "Visto em"
 
-#: ergoanimes/templates/ergoanimes/anime_show.html:53
+#: templates/ergoanimes/anime_show.html:53
 msgid "Comment"
 msgstr "Comentário"
 
-#: ergoanimes/templates/ergoanimes/anime_show.html:56
+#: templates/ergoanimes/anime_show.html:56
 msgid "Add to my list"
 msgstr "Adicionar para minha lista"
 
-#: ergoanimes/templates/ergoanimes/base.html:37
+#: templates/ergoanimes/base.html:37
 msgid "Reports"
 msgstr "Relatórios"
 
-#: ergoanimes/templates/ergoanimes/base.html:41 ergoanimes/views.py:193
+#: templates/ergoanimes/base.html:41 views.py:204
 msgid "New for Watch"
 msgstr "Novos para Assistir"
 
-#: ergoanimes/templates/ergoanimes/base.html:42 ergoanimes/views.py:194
+#: templates/ergoanimes/base.html:42 views.py:205
 msgid "New for Down"
 msgstr "Novos para Baixar"
 
-#: ergoanimes/templates/ergoanimes/base.html:45
+#: templates/ergoanimes/base.html:45
 msgid "Check new"
 msgstr "Verificar novos"
 
-#: ergoanimes/templates/ergoanimes/base.html:46
+#: templates/ergoanimes/base.html:46
 msgid "By note"
 msgstr "Por nota"
 
-#: ergoanimes/templates/ergoanimes/base.html:47
+#: templates/ergoanimes/base.html:47
 msgid "Viewed in HD"
 msgstr "Vistos no HD"
 
-#: ergoanimes/templates/ergoanimes/base.html:48
-#: ergoanimes/templates/ergoanimes/base.html:51
-#: ergoanimes/templates/ergoanimes/base.html:63
+#: templates/ergoanimes/base.html:48 templates/ergoanimes/base.html.py:52
+#: templates/ergoanimes/base.html:64
 msgid "All"
 msgstr "Todos"
 
-#: ergoanimes/templates/ergoanimes/base.html:54
-#: ergoanimes/templates/ergoanimes/base.html:65
+#: templates/ergoanimes/base.html:51
+msgid "By seasons"
+msgstr "Por temporada"
+
+#: templates/ergoanimes/base.html:55 templates/ergoanimes/base.html.py:66
 msgid "Add"
 msgstr "Adicionar"
 
-#: ergoanimes/templates/ergoanimes/base.html:60
+#: templates/ergoanimes/base.html:61
 msgid "Fansubs"
 msgstr "Fansubs"
 
-#: ergoanimes/templates/ergoanimes/base.html:79
+#: templates/ergoanimes/base.html:80
 msgid "Search"
 msgstr "Pesquisar"
 
-#: ergoanimes/validators.py:11
+#: validators.py:11
 msgid "The address should begin with irc://"
 msgstr "O endereço deve começar com irc://"
 
-#: ergoanimes/views.py:62
+#: views.py:72
 #, python-format
 msgid "Anime \"%(name)s\" saved"
 msgstr "Anime \"%(name)s\" salvo"
 
-#: ergoanimes/views.py:75
+#: views.py:85
 #, python-format
 msgid "Delete anime \"%(title)s\"?"
 msgstr "Apagar anime \"%(title)s\"?"
 
-#: ergoanimes/views.py:76
+#: views.py:86
 #, python-format
 msgid "Anime \"%(title)s\" deleted"
 msgstr "Anime \"%(title)s\" apagado"
 
-#: ergoanimes/views.py:122
+#: views.py:132
 #, python-format
 msgid "Fansub \"%(name)s\" saved"
 msgstr "Fansub \"%(name)s\" salvo"
 
-#: ergoanimes/views.py:135
+#: views.py:145
 #, python-format
 msgid "Delete fansub \"%(title)s\"?"
 msgstr "Apagar fansub \"%(title)s\"?"
 
-#: ergoanimes/views.py:136
+#: views.py:146
 #, python-format
 msgid "Fansub \"%(title)s\" deleted"
 msgstr "Fansub \"%(title)s\" apagado"
 
-#: ergoanimes/views.py:236
+#: views.py:247
 #, python-format
 msgid "Anime \"%(name)s\" update in list"
 msgstr "Anime \"%(name)s\" atualizado na lista"
 
-#: ergoanimes/views.py:250
+#: views.py:261
 #, python-format
 msgid "Remove anime \"%(title)s\" from list?"
 msgstr "Apagar anime \"%(title)s\" da lista?"
 
-#: ergoanimes/views.py:251
+#: views.py:262
 #, python-format
 msgid "Anime \"%(title)s\" removed"
 msgstr "Anime\"%(title)s\" apagado"
 
-#: ergoanimes/views.py:278
+#: views.py:289
 msgid "Episode type not identify"
 msgstr "Tipo do episódio não identificado"

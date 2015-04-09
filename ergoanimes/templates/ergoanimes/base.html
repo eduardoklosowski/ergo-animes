@@ -48,6 +48,7 @@
           <li><a href="{% url 'ergoanimes:useranime_list' %}">{% trans 'All' %}</a></li>
         </ul>
       </li>
+      <li><a href="{% url 'ergoanimes:anime_byseason' %}">{% trans 'By seasons' %}</a></li>
       <li><a href="{% url 'ergoanimes:anime_list' %}">{% trans 'All' %}</a></li>
       {% if perms.ergoanimes.add_anime %}
         <li class="divider"></li>
