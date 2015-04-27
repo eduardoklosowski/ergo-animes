@@ -26,7 +26,7 @@
               {% if perms.ergoanimes.delete_anime %}
                 <li><a href="{% url 'ergoanimes:anime_delete' anime.pk %}">{% trans 'Delete' %}</a></li>
               {% endif %}
-              {% if anime.synopsis %}<li><strong>{% trans 'Synopsis' %}:</strong> {{ anime.synopsis|linebreaksbr }}</li>{% endif %}
+              {% if anime.synopsis %}<li><strong>{% trans 'Synopsis' %}:</strong><br>{{ anime.synopsis|linebreaksbr }}</li>{% endif %}
             </ul>
           </div>
           <div class="small-12 medium-6 columns">
@@ -50,7 +50,7 @@
                 <li><strong>{% trans 'Link' %}:</strong> {{ useranime.get_link_linkdisplay }}</li>
                 <li><a href="{% url 'ergoanimes:useranime_form' anime.pk %}">{% trans 'Edit' %}</a></li>
                 <li><a href="{% url 'ergoanimes:useranime_delete' anime.pk %}">{% trans 'Delete' %}</a></li>
-                {% if useranime.comment %}<li><strong>{% trans 'Comment' %}:</strong> {{ useranime.comment|linebreaksbr }}</li>{% endif %}
+                {% if useranime.comment %}<li><strong>{% trans 'Comment' %}:</strong><br>{{ useranime.comment|linebreaksbr }}</li>{% endif %}
               </ul>
             {% else %}
               <a href="{% url 'ergoanimes:useranime_form' anime.pk %}">{% trans 'Add to my list' %}</a>
