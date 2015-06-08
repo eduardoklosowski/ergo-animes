@@ -20,6 +20,14 @@
           <li><b>IRC:</b> {{ fansub.get_irc_linkdisplay }}</li>
           <li><b>Ativo:</b> {{ fansub.get_active_display }}</li>
         </ul>
+
+        {% if perms.ergoanimes.change_fansub %}
+          <div class="row">
+            <div class="small-12 columns small-text-center medium-text-right">
+              <a class="button small fi-pencil" href="{% url 'ergoanimes:fansub_edit' fansub.pk %}" title="Editar"></a>
+            </div>
+          </div>
+        {% endif %}
       </div>
     </div>
   </section>

@@ -40,3 +40,9 @@ class FansubCreateView(PermissionRequiredMixin, generic.CreateView):
     permission = 'ergoanimes.add_fansub'
     model = models.Fansub
     fields = ('name', 'site', 'irc', 'active', 'img')
+
+
+class FansubUpdateView(PermissionRequiredMixin, generic.UpdateView):
+    permission = 'ergoanimes.change_fansub'
+    model = models.Fansub
+    fields = ('name', 'site', 'irc', 'active', 'img')

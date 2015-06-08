@@ -2,7 +2,7 @@
 {% load foundation %}
 
 
-{% block title %}Novo Fansub - {{ block.super }}{% endblock %}
+{% block title %}{% if fansub %}{{ fansub }} {% else %}Novo Fansub{% endif %} - {{ block.super }}{% endblock %}
 
 
 {% block content %}
@@ -13,7 +13,7 @@
       {% foundation_form_errors form %}
       <div class="row">
         <div class="small-12 columns">
-          <h1>Novo Fansub</h1>
+          <h1>{{ fansub|default:'Novo Fansub' }}</h1>
         </div>
       </div>
 
@@ -50,7 +50,7 @@
 
       <div class="row">
         <div class="small-12 columns small-text-center medium-text-right">
-          <a class="button secondary" href="{% url 'ergoanimes:fansub_list' %}">Cancelar</a>
+          <a class="button secondary" href="{% if fansub %}{{ fansub.get_absolute_url }}{% else %}{% url 'ergoanimes:fansub_list' %}{% endif %}">Cancelar</a>
           <button type="submit">Salvar</button>
         </div>
       </div>

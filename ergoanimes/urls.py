@@ -27,6 +27,7 @@ url_list = [
     url(r'^fansub/$', views.FansubListView.as_view(), name='fansub_list'),
     url(r'^fansub/(?P<pk>\d+)/$', views.FansubDetailView.as_view(), name='fansub'),
     url(r'^fansub/add/$', views.FansubCreateView.as_view(), name='fansub_add'),
+    url(r'^fansub/(?P<pk>\d+)/edit/$', views.FansubUpdateView.as_view(), name='fansub_edit'),
 ]
 
 urlpatterns = [
