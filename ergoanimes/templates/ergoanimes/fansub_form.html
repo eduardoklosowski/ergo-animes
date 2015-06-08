@@ -1,0 +1,59 @@
+{% extends 'ergoanimes/base.html' %}
+{% load foundation %}
+
+
+{% block title %}Novo Fansub - {{ block.super }}{% endblock %}
+
+
+{% block content %}
+  <section class="content" role="application">
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {% foundation_form_hiddens form %}
+      {% foundation_form_errors form %}
+      <div class="row">
+        <div class="small-12 columns">
+          <h1>Novo Fansub</h1>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-12 medium-10 columns">
+          {% foundation_form_field form.name %}
+        </div>
+        <div class="small-12 medium-2 columns">
+          {% foundation_form_field form.active %}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-12 columns">
+          {% foundation_form_field form.img %}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-12 columns">
+          <fieldset>
+            <legend>Endereços:</legend>
+            <div class="row">
+              <div class="small-12 medium-6 columns">
+                {% foundation_form_field form.site %}
+              </div>
+              <div class="small-12 medium-6 columns">
+                {% foundation_form_field form.irc %}
+              </div>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-12 columns small-text-center medium-text-right">
+          <a class="button secondary" href="{% url 'ergoanimes:fansub_list' %}">Cancelar</a>
+          <button type="submit">Salvar</button>
+        </div>
+      </div>
+    </form>
+  </section>
+{% endblock %}

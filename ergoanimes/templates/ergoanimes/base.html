@@ -26,6 +26,10 @@
       <a href="{% url 'ergoanimes:fansub_list' %}">Fansubs</a>
       <ul class="dropdown">
         <li><a href="{% url 'ergoanimes:fansub_list' %}">Todos</a></li>
+        {% if perms.ergoanimes.add_fansub %}
+          <li class="divider"></li>
+          <li><a href="{% url 'ergoanimes:fansub_add' %}">Novo</a></li>
+        {% endif %}
       </ul>
     </li>
     <li class="divider"></li>

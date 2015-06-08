@@ -21,7 +21,7 @@
 from __future__ import unicode_literals
 
 from django.views import generic
-from ergo.views import LoginRequiredMixin
+from ergo.views import LoginRequiredMixin, PermissionRequiredMixin
 
 from . import models
 
@@ -34,3 +34,9 @@ class FansubListView(LoginRequiredMixin, generic.ListView):
 
 class FansubDetailView(LoginRequiredMixin, generic.DetailView):
     model = models.Fansub
+
+
+class FansubCreateView(PermissionRequiredMixin, generic.CreateView):
+    permission = 'ergoanimes.add_fansub'
+    model = models.Fansub
+    fields = ('name', 'site', 'irc', 'active', 'img')
