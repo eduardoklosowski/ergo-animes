@@ -20,6 +20,7 @@
 
 from __future__ import unicode_literals
 
+from django.core.urlresolvers import reverse_lazy
 from django.views import generic
 from ergo.views import LoginRequiredMixin, PermissionRequiredMixin
 
@@ -46,3 +47,9 @@ class FansubUpdateView(PermissionRequiredMixin, generic.UpdateView):
     permission = 'ergoanimes.change_fansub'
     model = models.Fansub
     fields = ('name', 'site', 'irc', 'active', 'img')
+
+
+class FansubDeleteView(PermissionRequiredMixin, generic.DeleteView):
+    permission = 'ergoanimes.delete_fansub'
+    model = models.Fansub
+    success_url = reverse_lazy('ergoanimes:fansub_list')

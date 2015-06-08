@@ -1,0 +1,25 @@
+{% extends 'ergoanimes/base.html' %}
+
+
+{% block title %}{{ fansub }} - {{ block.super }}{% endblock %}
+
+
+{% block content %}
+  <section class="content" role="application">
+    <form method="post">
+      {% csrf_token %}
+      <div class="row">
+        <div class="small-12 text-center">
+          <h1>Apagar fansub "{{ fansub }}"?</h1>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-12 text-center">
+          <a class="button secondary" href="{{ fansub.get_absolute_url }}">Cancelar</a>
+          <button class="alert" type="submit">Apagar</button>
+        </div>
+      </div>
+    </form>
+  </section>
+{% endblock %}

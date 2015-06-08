@@ -21,10 +21,11 @@
           <li><b>Ativo:</b> {{ fansub.get_active_display }}</li>
         </ul>
 
-        {% if perms.ergoanimes.change_fansub %}
+        {% if perms.ergoanimes.change_fansub or perms.ergoanimes.delete_fansub %}
           <div class="row">
             <div class="small-12 columns small-text-center medium-text-right">
-              <a class="button small fi-pencil" href="{% url 'ergoanimes:fansub_edit' fansub.pk %}" title="Editar"></a>
+              {% if perms.ergoanimes.delete_fansub %}<a class="button small alert fi-trash" href="{% url 'ergoanimes:fansub_delete' fansub.pk %}" title="Apagar"></a>{% endif %}
+              {% if perms.ergoanimes.change_fansub %}<a class="button small fi-pencil" href="{% url 'ergoanimes:fansub_edit' fansub.pk %}" title="Editar"></a>{% endif %}
             </div>
           </div>
         {% endif %}

@@ -49,7 +49,12 @@
       </div>
 
       <div class="row">
-        <div class="small-12 columns small-text-center medium-text-right">
+        {% if fansub %}
+          <div class="small-12 medium-6 columns small-text-center medium-text-left">
+            <a class="button small alert fi-trash" href="{% url 'ergoanimes:fansub_delete' fansub.pk %}" title="Apagar"></a>
+          </div>
+        {% endif %}
+        <div class="small-12 {% if fansub %}medium-6 {% endif %}columns small-text-center medium-text-right">
           <a class="button secondary" href="{% if fansub %}{{ fansub.get_absolute_url }}{% else %}{% url 'ergoanimes:fansub_list' %}{% endif %}">Cancelar</a>
           <button type="submit">Salvar</button>
         </div>
