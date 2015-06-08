@@ -20,5 +20,56 @@
 
 from __future__ import unicode_literals
 
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
+from django.utils.safestring import mark_safe
+
+
+# Check
+
+def check_irc(value):
+    if not value.startswith('irc://'):
+        raise ValidationError('O endereço deve começar com "irc://"')
+
+
+# Models
+
+@python_2_unicode_compatible
+class Fansub(models.Model):
+    name = models.CharField('nome', max_length=64, unique=True)
+    site = models.URLField('site', blank=True)
+    irc = models.CharField('IRC', max_length=200, blank=True, validators=[check_irc])
+    active = models.BooleanField('ativo', blank=True, default=True)
+    img = models.ImageField('imagem', upload_to='ergoanimes/fansub', blank=True, null=True)
+
+    class Meta:
+        ordering = ('name',)
+        verbose_name = 'fansub'
+        verbose_name_plural = 'fansubs'
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return ''
+
+    def get_site_linkdisplay(self):
+        if self.site:
+            return mark_safe('<a href="%s">%s</a>' % (self.site, self.site))
+        return '-'
+
+    def get_irc_linkdisplay(self):
+        if self.irc:
+            return mark_safe('<a href="%s">%s</a>' % (self.irc, self.irc))
+        return '-'
+
+    def get_active_display(self):
+        if self.active:
+            return 'Sim'
+        return 'Não'
+
+    def has_img(self):
+        return self.img != ''
+    has_img.boolean = True
+    has_img.short_description = 'Tem imagem?'

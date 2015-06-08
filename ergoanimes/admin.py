@@ -21,3 +21,11 @@
 from django.contrib import admin
 
 from . import models
+
+
+@admin.register(models.Fansub)
+class FansubAdmin(admin.ModelAdmin):
+    list_display = ('name', 'site', 'irc', 'active', 'has_img')
+    list_display_links = ('name',)
+    list_filter = ('active',)
+    search_fields = ('name', 'site', 'irc')
