@@ -19,3 +19,14 @@
 #
 
 from __future__ import unicode_literals
+
+from django.views import generic
+from ergo.views import LoginRequiredMixin
+
+from . import models
+
+
+# Fansub
+
+class FansubListView(LoginRequiredMixin, generic.ListView):
+    model = models.Fansub

@@ -24,6 +24,7 @@ from . import views
 
 
 url_list = [
+    url(r'^fansub/$', views.FansubListView.as_view(), name='fansub_list'),
 ]
 
 urlpatterns = [
