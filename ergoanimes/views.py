@@ -30,3 +30,7 @@ from . import models
 
 class FansubListView(LoginRequiredMixin, generic.ListView):
     model = models.Fansub
+
+
+class FansubDetailView(LoginRequiredMixin, generic.DetailView):
+    model = models.Fansub

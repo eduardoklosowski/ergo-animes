@@ -1,0 +1,26 @@
+{% extends 'ergoanimes/base.html' %}
+
+
+{% block title %}{{ fansub }} - {{ block.super }}{% endblock %}
+
+
+{% block content %}
+  <section class="content" role="application">
+    <div class="row">
+      {% if fansub.img %}
+        <div class="small-12 medium-3 columns text-center">
+          <img class="border" src="{{ fansub.img.url }}" alt="{{ fansub }}">
+        </div>
+      {% endif %}
+
+      <div class="small-12 {% if fansub.img %}medium-9 {% endif %}columns">
+        <h1>{{ fansub }}</h1>
+        <ul class="square">
+          <li><b>Site:</b> {{ fansub.get_site_linkdisplay }}</li>
+          <li><b>IRC:</b> {{ fansub.get_irc_linkdisplay }}</li>
+          <li><b>Ativo:</b> {{ fansub.get_active_display }}</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+{% endblock %}
