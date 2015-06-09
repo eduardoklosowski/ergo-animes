@@ -20,14 +20,26 @@
 
 from __future__ import unicode_literals
 
+from datetime import date, timedelta
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 from django.db import models
+from django.template.defaultfilters import date as datefilter
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.safestring import mark_safe
 
 
 # Choices
+
+CHOICES_MEDIA_TYPE = (
+    ('', '-'),
+    ('tv', 'TV'),
+    ('special', 'Especial'),
+    ('ova', 'OVA'),
+    ('movie', 'Filme'),
+    ('ona', 'ONA'),
+)
+
 
 def get_genres():
     genres = (
@@ -85,7 +97,148 @@ def check_irc(value):
         raise ValidationError('O endereço deve começar com "irc://"')
 
 
+# Calc
+
+def calc_season_end(air_date):
+    if not air_date:
+        return None
+
+    air_date -= timedelta(days=21)
+    year = air_date.year
+    month = air_date.month
+
+    if month >= 10:
+        month = 10
+    elif month >= 7:
+        month = 7
+    elif month >= 4:
+        month = 4
+    else:
+        month = 1
+    return date(year, month, 1)
+
+
+def calc_season_start(air_date):
+    if not air_date:
+        return None
+
+    air_date += timedelta(days=21)
+    year = air_date.year
+    month = air_date.month
+
+    if month < 4:
+        month = 1
+    elif month < 7:
+        month = 4
+    elif month < 10:
+        month = 7
+    else:
+        month = 10
+    return date(year, month, 1)
+
+
 # Models
+
+@python_2_unicode_compatible
+class Anime(models.Model):
+    name = models.CharField('nome', max_length=256, unique=True)
+    media_type = models.CharField('tipo', max_length=8, default='', choices=CHOICES_MEDIA_TYPE)
+    img = models.ImageField('imagem', upload_to='ergoanimes/anime', blank=True, null=True)
+    episodes = models.PositiveSmallIntegerField('episódios', blank=True, null=True)
+    duration = models.PositiveSmallIntegerField('duração', blank=True, null=True)
+    air_start = models.DateField('transmitido de', blank=True, null=True)
+    air_end = models.DateField('transmitido até', blank=True, null=True)
+    season_start = models.DateField('temporada de', blank=True, null=True)
+    season_end = models.DateField('temporada até', blank=True, null=True)
+    genres = models.ManyToManyField('Genre', verbose_name='gêneros', related_name='animes', blank=True)
+    mal = models.PositiveIntegerField('MyAnimeList ID', blank=True, null=True, unique=True)
+    anidb = models.PositiveIntegerField('AniDB ID', blank=True, null=True, unique=True)
+    synopsis = models.TextField('sinopse', blank=True)
+
+    class Meta:
+        ordering = ('name',)
+        verbose_name = 'anime'
+        verbose_name_plural = 'animes'
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return ''
+
+    def clean(self):
+        self.calc_season()
+
+        if self.air_start and self.air_end and self.air_end < self.air_start:
+            raise ValidationError('Data de termino antes que a de início')
+        if self.season_start and self.season_end and self.season_end < self.season_start:
+            raise ValidationError('Temporada de termino antes que a de início')
+
+    def calc_season(self):
+        if not self.season_start:
+            self.season_start = calc_season_start(self.air_start)
+        if not self.season_end:
+            self.season_end = calc_season_end(self.air_end)
+            if self.season_start and self.season_end and self.season_end < self.season_start:
+                self.season_end = self.season_start
+
+    def has_img(self):
+        return self.img != ''
+    has_img.boolean = True
+    has_img.short_description = 'Tem imagem?'
+
+    def get_air_display(self):
+        air_start = self.air_start
+        air_end = self.air_end
+        if air_start or air_end:
+            if air_start:
+                air_start = datefilter(air_start, 'SHORT_DATE_FORMAT')
+            else:
+                air_start = '-'
+            if air_end:
+                air_end = datefilter(air_end, 'SHORT_DATE_FORMAT')
+            else:
+                air_end = '-'
+            return '%s até %s' % (air_start, air_end)
+        return '-'
+
+    def get_genres_display(self):
+        genres = self.genres.all()
+        if genres:
+            return ', '.join(str(genre) for genre in sorted(genres, key=lambda x: x.get_genre_display()))
+        return '-'
+    get_genres_display.short_description = 'Gêneros'
+
+    def get_genres_linkdisplay(self):
+        genres = self.genres.all()
+        if genres:
+            return mark_safe(', '.join('<a href="%s">%s</a>' % (genre.get_absolute_url(), genre)
+                                       for genre in sorted(self.genres.all(), key=lambda x: x.get_genre_display())))
+        return '-'
+
+    def get_links_linkdisplay(self):
+        links = ((self.get_mal_link(), 'MAL'),
+                 (self.get_anidb_link(), 'AniDB'))
+        links = [link for link in links if link[0]]
+        if links:
+            return mark_safe(' '.join('<a href="%s" target="_blank">%s</a>' % link for link in links))
+        return '-'
+
+    def get_mal_link(self):
+        if self.mal:
+            return 'http://myanimelist.net/anime/%d/' % self.mal
+        return None
+
+    def get_anidb_link(self):
+        if self.anidb:
+            return 'http://anidb.net/perl-bin/animedb.pl?show=anime&aid=%d' % self.anidb
+        return None
+
+    def has_synopsis(self):
+        return self.synopsis != ''
+    has_synopsis.boolean = True
+    has_synopsis.short_description = 'Tem sinopse?'
+
 
 @python_2_unicode_compatible
 class Fansub(models.Model):
