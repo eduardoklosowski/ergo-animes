@@ -31,6 +31,7 @@ url_list = [
     url(r'^fansub/(?P<pk>\d+)/delete/$', views.FansubDeleteView.as_view(), name='fansub_delete'),
 
     url(r'^genre/$', views.GenreListView.as_view(), name='genre_list'),
+    url(r'^genre/(?P<pk>\d+)/$', views.GenreDetailView.as_view(), name='genre'),
 ]
 
 urlpatterns = [

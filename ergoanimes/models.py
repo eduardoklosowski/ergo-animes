@@ -139,4 +139,4 @@ class Genre(models.Model):
         return self.get_genre_display()
 
     def get_absolute_url(self):
-        return ''
+        return reverse('ergoanimes:genre', args=(self.pk,))

@@ -65,3 +65,7 @@ class GenreListView(LoginRequiredMixin, generic.ListView):
     def get_queryset(self):
         qs = super(GenreListView, self).get_queryset()
         return sorted(qs, key=lambda x: x.get_genre_display())
+
+
+class GenreDetailView(LoginRequiredMixin, generic.DetailView):
+    model = models.Genre

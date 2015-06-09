@@ -1,0 +1,15 @@
+{% extends 'ergoanimes/base.html' %}
+
+
+{% block title %}{{ genre }} - {{ block.super }}{% endblock %}
+
+
+{% block content %}
+  <section class="content" role="application">
+    <div class="row">
+      <div class="small-12 columns">
+        <h1>{{ genre }}</h1>
+      </div>
+    </div>
+  </section>
+{% endblock %}
