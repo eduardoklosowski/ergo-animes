@@ -23,6 +23,14 @@
   <ul class="left">
     <li class="divider"></li>
     <li class="has-dropdown">
+      <a href="{% url 'ergoanimes:anime_list' %}">Animes</a>
+      <ul class="dropdown">
+        <li><a href="{% url 'ergoanimes:anime_list' %}">Todos</a></li>
+      </ul>
+    </li>
+    <li class="divider"></li>
+
+    <li class="has-dropdown">
       <a href="{% url 'ergoanimes:fansub_list' %}">Fansubs</a>
       <ul class="dropdown">
         <li><a href="{% url 'ergoanimes:fansub_list' %}">Todos</a></li>

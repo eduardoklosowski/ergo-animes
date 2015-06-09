@@ -21,10 +21,22 @@
 from __future__ import unicode_literals
 
 from django.core.urlresolvers import reverse_lazy
+from django.db.models.functions import Lower
 from django.views import generic
 from ergo.views import LoginRequiredMixin, PermissionRequiredMixin
 
 from . import models
+
+
+# Anime
+
+class AnimeListView(LoginRequiredMixin, generic.ListView):
+    model = models.Anime
+    ordering = (Lower('name'),)
+
+    def get_queryset(self):
+        qs = super(AnimeListView, self).get_queryset()
+        return qs.prefetch_related('genres')
 
 
 # Fansub

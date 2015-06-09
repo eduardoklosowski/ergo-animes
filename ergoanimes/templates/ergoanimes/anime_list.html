@@ -1,0 +1,34 @@
+{% extends 'ergoanimes/base.html' %}
+
+
+{% block title %}Animes - {{ block.super }}{% endblock %}
+
+
+{% block content %}
+  <section class="content" role="application">
+    <table class="width-full">
+      <thead>
+        <tr>
+          <th>Anime</th>
+          <th class="show-for-medium-up width-6r">Tipo</th>
+          <th class="show-for-medium-up width-6r">Episódios</th>
+          <th class="show-for-medium-up width-6r">Temporada</th>
+          <th class="show-for-large-up">Gêneros</th>
+          <th class="show-for-medium-up width-6r">Links</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for anime in anime_list %}
+          <tr>
+            <td><a href="{{ anime.get_absolute_url }}">{{ anime.name }}</a></td>
+            <td class="show-for-medium-up">{{ anime.get_media_type_display }}</td>
+            <td class="show-for-medium-up text-right">{{ anime.episodes|default_if_none:'-' }}</td>
+            <td class="show-for-medium-up">{{ anime.season_start|date:'b/Y'|capfirst|default:'-' }}</td>
+            <td class="show-for-large-up">{{ anime.get_genres_linkdisplay }}</td>
+            <td class="show-for-medium-up">{{ anime.get_links_linkdisplay }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+{% endblock %}

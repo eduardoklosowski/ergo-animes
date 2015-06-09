@@ -24,6 +24,8 @@ from . import views
 
 
 url_list = [
+    url(r'^anime/$', views.AnimeListView.as_view(), name='anime_list'),
+
     url(r'^fansub/$', views.FansubListView.as_view(), name='fansub_list'),
     url(r'^fansub/(?P<pk>\d+)/$', views.FansubDetailView.as_view(), name='fansub'),
     url(r'^fansub/add/$', views.FansubCreateView.as_view(), name='fansub_add'),
