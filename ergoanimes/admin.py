@@ -29,3 +29,8 @@ class FansubAdmin(admin.ModelAdmin):
     list_display_links = ('name',)
     list_filter = ('active',)
     search_fields = ('name', 'site', 'irc')
+
+
+@admin.register(models.Genre)
+class GenreAdmin(admin.ModelAdmin):
+    list_display = ('genre',)

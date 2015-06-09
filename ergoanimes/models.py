@@ -27,6 +27,57 @@ from django.utils.encoding import python_2_unicode_compatible
 from django.utils.safestring import mark_safe
 
 
+# Choices
+
+def get_genres():
+    genres = (
+        (1, 'Ação'),
+        (2, 'Aventura'),
+        (3, 'Carros'),
+        (4, 'Comédia'),
+        (5, 'Demencia'),
+        (6, 'Demônio'),
+        (7, 'Drama'),
+        (8, 'Ecchi'),
+        (9, 'Fantasia'),
+        (10, 'Jogo'),
+        (11, 'Harém'),
+        (12, 'Hentai'),
+        (13, 'Histórico'),
+        (14, 'Horror'),
+        (15, 'Josei'),
+        (16, 'Crianças'),
+        (17, 'Mágica'),
+        (18, 'Artes Marciais'),
+        (19, 'Mecha'),
+        (20, 'Militar'),
+        (21, 'Música'),
+        (22, 'Mistério'),
+        (23, 'Paródia'),
+        (24, 'Policial'),
+        (25, 'Psicológico'),
+        (26, 'Romance'),
+        (27, 'Samurai'),
+        (28, 'Escola'),
+        (29, 'Sci-Fi'),
+        (30, 'Seinen'),
+        (31, 'Shoujo'),
+        (32, 'Shoujo Ai'),
+        (33, 'Shounen'),
+        (34, 'Shounen Ai'),
+        (35, 'Slice of Life'),
+        (36, 'Espacial'),
+        (37, 'Esporte'),
+        (38, 'Super Poder'),
+        (39, 'Sobrenatural'),
+        (40, 'Suspense'),
+        (41, 'Vampiro'),
+        (42, 'Yaoi'),
+        (43, 'Yuri'),
+    )
+    return sorted(genres, key=lambda x: x[1])
+
+
 # Check
 
 def check_irc(value):
@@ -74,3 +125,18 @@ class Fansub(models.Model):
         return self.img != ''
     has_img.boolean = True
     has_img.short_description = 'Tem imagem?'
+
+
+@python_2_unicode_compatible
+class Genre(models.Model):
+    genre = models.PositiveSmallIntegerField('gênero', primary_key=True, choices=get_genres())
+
+    class Meta:
+        verbose_name = 'gênero'
+        verbose_name_plural = 'gêneros'
+
+    def __str__(self):
+        return self.get_genre_display()
+
+    def get_absolute_url(self):
+        return ''
