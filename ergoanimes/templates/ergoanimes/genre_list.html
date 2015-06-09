@@ -1,0 +1,24 @@
+{% extends 'ergoanimes/base.html' %}
+
+
+{% block title %}Gêneros - {{ block.super }}{% endblock %}
+
+
+{% block content %}
+  <section class="content" role="application">
+    <table class="width-full">
+      <thead>
+        <tr>
+          <th>Gênero</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for genre in genre_list %}
+          <tr>
+            <td><a href="{{ genre.get_absolute_url }}">{{ genre.get_genre_display }}</a></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+{% endblock %}

@@ -53,3 +53,15 @@ class FansubDeleteView(PermissionRequiredMixin, generic.DeleteView):
     permission = 'ergoanimes.delete_fansub'
     model = models.Fansub
     success_url = reverse_lazy('ergoanimes:fansub_list')
+
+
+# Genre
+
+class GenreListView(LoginRequiredMixin, generic.ListView):
+    model = models.Genre
+    template_name = 'ergoanimes/genre_list.html'
+    context_object_name = 'genre_list'
+
+    def get_queryset(self):
+        qs = super(GenreListView, self).get_queryset()
+        return sorted(qs, key=lambda x: x.get_genre_display())
