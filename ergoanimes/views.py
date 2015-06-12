@@ -56,6 +56,13 @@ class AnimeCreateView(PermissionRequiredMixin, generic.CreateView):
               'season_start', 'season_end', 'genres', 'mal', 'anidb', 'synopsis')
 
 
+class AnimeUpdateView(PermissionRequiredMixin, generic.UpdateView):
+    permission = 'ergoanimes.change_anime'
+    model = models.Anime
+    fields = ('name', 'media_type', 'img', 'episodes', 'duration', 'air_start', 'air_end',
+              'season_start', 'season_end', 'genres', 'mal', 'anidb', 'synopsis')
+
+
 # Fansub
 
 class FansubListView(LoginRequiredMixin, generic.ListView):

@@ -26,6 +26,11 @@
               <li><b>Links:</b> {{ anime.get_links_linkdisplay }}</li>
               <li><b>Duração dos episódios:</b> {{ anime.duration|default:'-' }} min.</li>
             </ul>
+            {% if perms.ergoanimes.change_anime %}
+              <div class="small-text-center medium-text-right">
+                <a class="button small fi-pencil" href="{% url 'ergoanimes:anime_edit' anime.pk %}" title="Editar"></a>
+              </div>
+            {% endif %}
             {% if anime.synopsis %}<div class="text-justify">{{ anime.synopsis|linebreaksbr }}</div>{% endif %}
           </div>
         </div>

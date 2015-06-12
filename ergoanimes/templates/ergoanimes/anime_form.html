@@ -2,7 +2,7 @@
 {% load foundation %}
 
 
-{% block title %}Novo Anime - {{ block.super }}{% endblock %}
+{% block title %}{% if anime %}{{ anime }}{% else %}Novo Anime{% endif %} - {{ block.super }}{% endblock %}
 
 
 {% block content %}
@@ -13,7 +13,7 @@
       {% foundation_form_errors form %}
       <div class="row">
         <div class="small-12 columns">
-          <h1>Novo Anime</h1>
+          <h1>{{ anime|default:'Novo Anime' }}</h1>
         </div>
       </div>
 
@@ -95,7 +95,7 @@
 
       <div class="row">
         <div class="small-12 columns small-text-center medium-text-right">
-          <a class="button secondary" href="{% url 'ergoanimes:anime_list' %}">Cancelar</a>
+          <a class="button secondary" href="{% if anime %}{{ anime.get_absolute_url }}{% else %}{% url 'ergoanimes:anime_list' %}{% endif %}">Cancelar</a>
           <button type="submit">Salvar</button>
         </div>
       </div>
