@@ -63,6 +63,12 @@ class AnimeUpdateView(PermissionRequiredMixin, generic.UpdateView):
               'season_start', 'season_end', 'genres', 'mal', 'anidb', 'synopsis')
 
 
+class AnimeDeleteView(PermissionRequiredMixin, generic.DeleteView):
+    permission = 'ergoanimes.delete_anime'
+    model = models.Anime
+    success_url = reverse_lazy('ergoanimes:anime_list')
+
+
 # Fansub
 
 class FansubListView(LoginRequiredMixin, generic.ListView):

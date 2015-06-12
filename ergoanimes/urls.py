@@ -28,6 +28,7 @@ url_list = [
     url(r'^anime/(?P<pk>\d+)/$', views.AnimeDetailView.as_view(), name='anime'),
     url(r'^anime/add/$', views.AnimeCreateView.as_view(), name='anime_add'),
     url(r'^anime/(?P<pk>\d+)/edit/$', views.AnimeUpdateView.as_view(), name='anime_edit'),
+    url(r'^anime/(?P<pk>\d+)/delete/$', views.AnimeDeleteView.as_view(), name='anime_delete'),
 
     url(r'^fansub/$', views.FansubListView.as_view(), name='fansub_list'),
     url(r'^fansub/(?P<pk>\d+)/$', views.FansubDetailView.as_view(), name='fansub'),

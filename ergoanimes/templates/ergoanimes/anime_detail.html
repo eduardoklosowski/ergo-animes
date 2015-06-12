@@ -26,9 +26,10 @@
               <li><b>Links:</b> {{ anime.get_links_linkdisplay }}</li>
               <li><b>Duração dos episódios:</b> {{ anime.duration|default:'-' }} min.</li>
             </ul>
-            {% if perms.ergoanimes.change_anime %}
+            {% if perms.ergoanimes.change_anime or perms.ergoanimes.delete_anime %}
               <div class="small-text-center medium-text-right">
-                <a class="button small fi-pencil" href="{% url 'ergoanimes:anime_edit' anime.pk %}" title="Editar"></a>
+                {% if perms.ergoanimes.delete_anime %}<a class="button small alert fi-trash" href="{% url 'ergoanimes:anime_delete' anime.pk %}" title="Apagar"></a>{% endif %}
+                {% if perms.ergoanimes.change_anime %}<a class="button small fi-pencil" href="{% url 'ergoanimes:anime_edit' anime.pk %}" title="Editar"></a>{% endif %}
               </div>
             {% endif %}
             {% if anime.synopsis %}<div class="text-justify">{{ anime.synopsis|linebreaksbr }}</div>{% endif %}
