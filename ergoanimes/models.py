@@ -164,7 +164,7 @@ class Anime(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return ''
+        return reverse('ergoanimes:anime', args=(self.pk,))
 
     def clean(self):
         self.calc_season()

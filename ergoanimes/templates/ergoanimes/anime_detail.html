@@ -1,0 +1,35 @@
+{% extends 'ergoanimes/base.html' %}
+
+
+{% block title %}{{ anime }} - {{ block.super }}{% endblock %}
+
+
+{% block content %}
+  <section class="content" role="application">
+    <div class="row">
+      {% if anime.img %}
+        <div class="small-12 medium-3 columns text-center">
+          <img class="border" src="{{ anime.img.url }}" alt="{{ anime }}">
+        </div>
+      {% endif %}
+
+      <div class="small-12 {% if anime.img %}medium-9 {% endif %}columns">
+        <h1>{{ anime }}</h1>
+        <div class="row">
+          <div class="small-12 columns">
+            <ul class="square">
+              <li><b>Tipo:</b> {{ anime.get_media_type_display }}</li>
+              <li><b>Episódios:</b> {{ anime.episodes|default_if_none:'-' }}</li>
+              <li><b>Temporada:</b> {{ anime.season_start|date:'b/Y'|capfirst|default:'-' }}</li>
+              <li><b>Exibição:</b> {{ anime.get_air_display }}</li>
+              <li><b>Gêneros:</b> {{ anime.get_genres_linkdisplay }}</li>
+              <li><b>Links:</b> {{ anime.get_links_linkdisplay }}</li>
+              <li><b>Duração dos episódios:</b> {{ anime.duration|default:'-' }} min.</li>
+            </ul>
+            {% if anime.synopsis %}<div class="text-justify">{{ anime.synopsis|linebreaksbr }}</div>{% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}

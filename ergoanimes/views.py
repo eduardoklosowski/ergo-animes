@@ -41,6 +41,14 @@ class AnimeListView(LoginRequiredMixin, generic.ListView):
         return qs.prefetch_related('genres')
 
 
+class AnimeDetailView(LoginRequiredMixin, generic.DetailView):
+    model = models.Anime
+
+    def get_queryset(self):
+        qs = super(AnimeDetailView, self).get_queryset()
+        return qs.prefetch_related('genres')
+
+
 # Fansub
 
 class FansubListView(LoginRequiredMixin, generic.ListView):
