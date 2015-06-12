@@ -26,6 +26,10 @@
       <a href="{% url 'ergoanimes:anime_list' %}">Animes</a>
       <ul class="dropdown">
         <li><a href="{% url 'ergoanimes:anime_list' %}">Todos</a></li>
+        {% if perms.ergoanimes.add_anime %}
+          <li class="divider"></li>
+          <li><a href="{% url 'ergoanimes:anime_add' %}">Novo</a></li>
+        {% endif %}
       </ul>
     </li>
     <li class="divider"></li>

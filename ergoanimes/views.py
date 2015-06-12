@@ -49,6 +49,13 @@ class AnimeDetailView(LoginRequiredMixin, generic.DetailView):
         return qs.prefetch_related('genres')
 
 
+class AnimeCreateView(PermissionRequiredMixin, generic.CreateView):
+    permission = 'ergoanimes.add_anime'
+    model = models.Anime
+    fields = ('name', 'media_type', 'img', 'episodes', 'duration', 'air_start', 'air_end',
+              'season_start', 'season_end', 'genres', 'mal', 'anidb', 'synopsis')
+
+
 # Fansub
 
 class FansubListView(LoginRequiredMixin, generic.ListView):

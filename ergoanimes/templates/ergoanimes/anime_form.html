@@ -1,0 +1,104 @@
+{% extends 'ergoanimes/base.html' %}
+{% load foundation %}
+
+
+{% block title %}Novo Anime - {{ block.super }}{% endblock %}
+
+
+{% block content %}
+  <section class="content" role="application">
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {% foundation_form_hiddens form %}
+      {% foundation_form_errors form %}
+      <div class="row">
+        <div class="small-12 columns">
+          <h1>Novo Anime</h1>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-12 columns">
+          {% foundation_form_field form.name %}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-12 medium-4 columns">
+          {% foundation_form_field form.media_type %}
+        </div>
+        <div class="small-12 medium-4 columns">
+          {% foundation_form_field form.episodes %}
+        </div>
+        <div class="small-12 medium-4 columns">
+          {% foundation_form_field form.duration %}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-12 columns">
+          {% foundation_form_field form.img %}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-12 columns">
+          <fieldset>
+            <legend>Datas:</legend>
+            <div class="row">
+              <div class="small-12 medium-6 columns">
+                {% foundation_form_field form.air_start %}
+              </div>
+              <div class="small-12 medium-6 columns">
+                {% foundation_form_field form.air_end %}
+              </div>
+            </div>
+            <div class="row">
+              <div class="small-12 medium-6 columns">
+                {% foundation_form_field form.season_start %}
+              </div>
+              <div class="small-12 medium-6 columns">
+                {% foundation_form_field form.season_end %}
+              </div>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-12 columns">
+          {% foundation_form_field form.genres %}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-12 columns">
+          <fieldset>
+            <legend>Links:</legend>
+            <div class="row">
+              <div class="small-12 medium-6 columns">
+                {% foundation_form_field form.mal %}
+              </div>
+              <div class="small-12 medium-6 columns">
+                {% foundation_form_field form.anidb %}
+              </div>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-12 columns">
+          {% foundation_form_field form.synopsis %}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-12 columns small-text-center medium-text-right">
+          <a class="button secondary" href="{% url 'ergoanimes:anime_list' %}">Cancelar</a>
+          <button type="submit">Salvar</button>
+        </div>
+      </div>
+    </form>
+  </section>
+{% endblock %}

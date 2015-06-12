@@ -4,6 +4,10 @@
   background-color: #ffffff;
 }
 
+#id_genres {
+  height: 14rem;
+}
+
 td.anime {
   position: relative;
   min-width: 235px;
