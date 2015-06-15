@@ -1,4 +1,5 @@
 {% extends 'ergoanimes/base.html' %}
+{% load ergoanimes %}
 
 
 {% block title %}{{ anime }} - {{ block.super }}{% endblock %}
@@ -16,7 +17,7 @@
       <div class="small-12 {% if anime.img %}medium-9 {% endif %}columns">
         <h1>{{ anime }}</h1>
         <div class="row">
-          <div class="small-12 columns">
+          <div class="small-7 columns">
             <ul class="square">
               <li><b>Tipo:</b> {{ anime.get_media_type_display }}</li>
               <li><b>Episódios:</b> {{ anime.episodes|default_if_none:'-' }}</li>
@@ -33,6 +34,32 @@
               </div>
             {% endif %}
             {% if anime.synopsis %}<div class="text-justify">{{ anime.synopsis|linebreaksbr }}</div>{% endif %}
+          </div>
+
+          <div class="small-5 columns">
+            {% if useranime %}
+              <ul class="square">
+                <li><b>Status:</b> {{ useranime.get_status_display }}</li>
+                <li><b>Fansub:</b> {{ useranime.get_fansub_linkdisplay }}</li>
+                <li><b>Qualidade:</b> {{ useranime.get_quality_display }}</li>
+                <li><b>Resolução:</b> {{ useranime.get_resolution_display }}</li>
+                <li><b>Nota:</b> {{ useranime.note|default_if_none:'-' }}</li>
+                <li>
+                  <b>Episódios:</b>
+                  <ul class="square">
+                    <li><b>Publicados:</b> {% ergoanimes_episodes useranime.episodes_pub anime.episodes %}</li>
+                    <li><b>Baixados:</b> {% ergoanimes_episodes useranime.episodes_down useranime.episodes_pub %}</li>
+                    <li><b>Vistos:</b> {% ergoanimes_episodes useranime.episodes_viewed useranime.episodes_down %}</li>
+                  </ul>
+                </li>
+                <li><b>Vezes visto:</b> {{ useranime.times }}</li>
+                <li><b>Visto em:</b> {{ useranime.get_date_display }}</li>
+                <li><b>Link:</b> {{ useranime.get_link_linkdisplay }}</li>
+              </ul>
+              {% if useranime.comment %}<div class="text-justify">{{ useranime.comment|linebreaksbr }}</div>{% endif %}
+            {% else %}
+              <a href="">Adicionar para a minha lista</a>
+            {% endif %}
           </div>
         </div>
       </div>

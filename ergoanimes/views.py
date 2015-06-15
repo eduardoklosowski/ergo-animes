@@ -20,6 +20,7 @@
 
 from __future__ import unicode_literals
 
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse_lazy
 from django.db.models.functions import Lower
 from django.views import generic
@@ -48,6 +49,16 @@ class AnimeDetailView(LoginRequiredMixin, generic.DetailView):
     def get_queryset(self):
         qs = super(AnimeDetailView, self).get_queryset()
         return qs.prefetch_related('genres')
+
+    def get_context_data(self, **kwargs):
+        try:
+            useranime = self.object.useranimes.filter(user=self.request.user).select_related('fansub').get()
+        except ObjectDoesNotExist:
+            useranime = None
+
+        context = super(AnimeDetailView, self).get_context_data(**kwargs)
+        context['useranime'] = useranime
+        return context
 
 
 class AnimeCreateView(PermissionRequiredMixin, generic.CreateView):
