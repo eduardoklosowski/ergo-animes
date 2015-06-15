@@ -134,3 +134,10 @@ class UserAnimeListView(LoginRequiredMixin, userviews.UserListView):
     def get_queryset(self):
         qs = super(UserAnimeListView, self).get_queryset()
         return qs.select_related('anime', 'fansub')
+
+
+class UserAnimeCreateView(LoginRequiredMixin, userviews.SharedUserCreateView):
+    model = models.UserAnime
+    shared_model = models.Anime
+    fields = ('user', 'anime', 'status', 'fansub', 'quality', 'resolution', 'episodes_pub', 'episodes_down',
+              'episodes_viewed', 'times', 'date_start', 'date_end', 'link', 'note', 'comment')

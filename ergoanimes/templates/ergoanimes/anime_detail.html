@@ -58,7 +58,7 @@
               </ul>
               {% if useranime.comment %}<div class="text-justify">{{ useranime.comment|linebreaksbr }}</div>{% endif %}
             {% else %}
-              <a href="">Adicionar para a minha lista</a>
+              <a href="{% url 'ergoanimes:useranime_add' anime.pk %}">Adicionar para a minha lista</a>
             {% endif %}
           </div>
         </div>

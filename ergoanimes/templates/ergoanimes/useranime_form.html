@@ -1,0 +1,101 @@
+{% extends 'ergoanimes/base.html' %}
+{% load foundation %}
+
+
+{% block title %}Adicionar na Lista - {{ block.super }}{% endblock %}
+
+
+{% block content %}
+  <section class="content" role="application">
+    <form method="post">
+      {% csrf_token %}
+      {% foundation_form_hiddens form %}
+      {% foundation_form_errors form %}
+      <div class="row">
+        <div class="small-12 columns">
+          <h1>{{ anime }}</h1>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-12 medium-6 columns">
+          {% foundation_form_field form.status %}
+        </div>
+        <div class="small-12 medium-6 columns">
+          {% foundation_form_field form.fansub %}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-12 medium-6 columns">
+          {% foundation_form_field form.quality %}
+        </div>
+        <div class="small-12 medium-6 columns">
+          {% foundation_form_field form.resolution %}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-12 columns">
+          <fieldset>
+            <legend>Episódios:</legend>
+            <div class="row">
+              <div class="small-12 medium-6 columns">
+                {% foundation_form_field form.episodes_pub %}
+              </div>
+              <div class="small-12 medium-6 columns">
+                {% foundation_form_field form.episodes_down %}
+              </div>
+            </div>
+            <div class="row">
+              <div class="small-12 medium-6 columns">
+                {% foundation_form_field form.episodes_viewed %}
+              </div>
+              <div class="small-12 medium-6 columns">
+                {% foundation_form_field form.times %}
+              </div>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-12 columns">
+          <fieldset>
+            <legend>Data:</legend>
+            <div class="row">
+              <div class="small-12 medium-6 columns">
+                {% foundation_form_field form.date_start %}
+              </div>
+              <div class="small-12 medium-6 columns">
+                {% foundation_form_field form.date_end %}
+              </div>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-12 medium-6 columns">
+          {% foundation_form_field form.link %}
+        </div>
+        <div class="small-12 medium-6 columns">
+          {% foundation_form_field form.note %}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-12 columns">
+          {% foundation_form_field form.comment %}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-12 columns small-text-center medium-text-right">
+          <a class="button secondary" href="{{ anime.get_absolute_url }}">Cancelar</a>
+          <button type="submit">Salvar</button>
+        </div>
+      </div>
+    </form>
+  </section>
+{% endblock %}
