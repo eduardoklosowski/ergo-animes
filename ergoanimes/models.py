@@ -21,8 +21,10 @@
 from __future__ import unicode_literals
 
 from datetime import date, timedelta
+from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.template.defaultfilters import date as datefilter, linebreaksbr
 from django.utils.encoding import python_2_unicode_compatible
@@ -38,6 +40,23 @@ CHOICES_MEDIA_TYPE = (
     ('ova', 'OVA'),
     ('movie', 'Filme'),
     ('ona', 'ONA'),
+)
+
+CHOICES_QUALITY = (
+    ('', '-'),
+    ('bluray', 'Blu-ray'),
+    ('hdtv', 'HDTV'),
+    ('dvd', 'DVD'),
+    ('tv', 'TV'),
+    ('web', 'Web'),
+)
+
+CHOICES_STATUS = (
+    ('new', 'Novo'),
+    ('watching', 'Assistindo'),
+    ('hold', 'Espera'),
+    ('completed', 'Completo'),
+    ('drop', 'Abandonado'),
 )
 
 
@@ -301,3 +320,79 @@ class Genre(models.Model):
 
     def get_absolute_url(self):
         return reverse('ergoanimes:genre', args=(self.pk,))
+
+
+@python_2_unicode_compatible
+class UserAnime(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='usuário', related_name='+')
+    anime = models.ForeignKey(Anime, verbose_name='anime', related_name='useranimes')
+    status = models.CharField('status', max_length=9, default='new', choices=CHOICES_STATUS)
+    fansub = models.ForeignKey(Fansub, verbose_name='fansub', related_name='useranimes', blank=True, null=True)
+    quality = models.CharField('qualidade', max_length=6, blank=True, choices=CHOICES_QUALITY)
+    resolution = models.PositiveSmallIntegerField('resolução', blank=True, null=True)
+    episodes_pub = models.PositiveSmallIntegerField('publicados', blank=True, null=True)
+    episodes_down = models.PositiveSmallIntegerField('baixados', blank=True, null=True)
+    episodes_viewed = models.PositiveSmallIntegerField('vistos', blank=True, null=True)
+    times = models.PositiveSmallIntegerField('vezes visto', default=0)
+    date_start = models.DateField('visto de', blank=True, null=True)
+    date_end = models.DateField('visto até', blank=True, null=True)
+    link = models.URLField('link', blank=True)
+    note = models.DecimalField('nota', max_digits=2, decimal_places=1, blank=True, null=True,
+                               validators=[MinValueValidator(0), MaxValueValidator(5)])
+    comment = models.TextField('comentário', blank=True)
+
+    class Meta:
+        ordering = ('user', 'anime')
+        unique_together = (('user', 'anime'),)
+        verbose_name = 'anime de usuário'
+        verbose_name_plural = 'animes de usuários'
+
+    def __str__(self):
+        return str(self.anime)
+
+    def get_absolute_url(self):
+        return self.anime.get_absolute_url()
+
+    def clean(self):
+        if self.status == 'completed' and not self.times:
+            raise ValidationError('Informe a quantidade de vezes que o anime foi visto')
+        if self.date_start and self.date_end and self.date_end < self.date_start:
+            raise ValidationError('Data de fim antes que a de início')
+        episodes = self.anime.episodes
+        if episodes is not None:
+            if self.episodes_pub is not None and self.episodes_pub > episodes:
+                raise ValidationError('Episódios publicadso maior que %d' % episodes)
+            if self.episodes_down is not None and self.episodes_down > episodes:
+                raise ValidationError('Episódios baixados maior que %d' % episodes)
+            if self.episodes_viewed is not None and self.episodes_viewed > episodes:
+                raise ValidationError('Episódios vistos maior que %d' % episodes)
+
+    def get_fansub_linkdisplay(self):
+        if self.fansub:
+            return mark_safe('<a href="%s">%s</a>' % (self.fansub.get_absolute_url(), self.fansub))
+        return '-'
+
+    def get_resolution_display(self):
+        if self.resolution:
+            return '%dp' % self.resolution
+        return '-'
+
+    def get_date_display(self):
+        date_start = self.date_start
+        date_end = self.date_end
+        if date_start or date_end:
+            if date_start:
+                date_start = datefilter(date_start, 'SHORT_DATE_FORMAT')
+            else:
+                date_start = '-'
+            if date_end:
+                date_end = datefilter(date_end, 'SHORT_DATE_FORMAT')
+            else:
+                date_end = '-'
+            return '%s até %s' % (date_start, date_end)
+        return '-'
+
+    def get_link_linkdisplay(self):
+        if self.link:
+            return mark_safe('<a href="%s">Download</a>' % self.link)
+        return '-'
