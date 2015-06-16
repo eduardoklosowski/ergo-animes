@@ -24,7 +24,7 @@ from datetime import date, timedelta
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 from django.db import models
-from django.template.defaultfilters import date as datefilter
+from django.template.defaultfilters import date as datefilter, linebreaksbr
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.safestring import mark_safe
 
@@ -186,6 +186,14 @@ class Anime(models.Model):
         return self.img != ''
     has_img.boolean = True
     has_img.short_description = 'Tem imagem?'
+
+    def get_anime_img_synopsis_linkdisplay(self):
+        text = ['<a href="%s">%s</a>' % (self.get_absolute_url(), self.name)]
+        if self.img:
+            text.append('<img class="border" data-src="%s">' % self.img.url)
+        if self.synopsis:
+            text.append('<div class="synopsis text-justify">%s</div>' % linebreaksbr(self.synopsis))
+        return mark_safe(''.join(text))
 
     def get_air_display(self):
         air_start = self.air_start

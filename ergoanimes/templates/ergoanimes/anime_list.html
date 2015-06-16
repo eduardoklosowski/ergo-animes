@@ -20,7 +20,7 @@
       <tbody>
         {% for anime in anime_list %}
           <tr>
-            <td><a href="{{ anime.get_absolute_url }}">{{ anime.name }}</a></td>
+            <td class="anime">{{ anime.get_anime_img_synopsis_linkdisplay }}</td>
             <td class="show-for-medium-up">{{ anime.get_media_type_display }}</td>
             <td class="show-for-medium-up text-right">{{ anime.episodes|default_if_none:'-' }}</td>
             <td class="show-for-medium-up">{{ anime.season_start|date:'b/Y'|capfirst|default:'-' }}</td>
