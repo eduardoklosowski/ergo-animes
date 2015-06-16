@@ -21,7 +21,7 @@
 from __future__ import unicode_literals
 
 from django.core.exceptions import ObjectDoesNotExist
-from django.core.urlresolvers import reverse_lazy
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.db.models.functions import Lower
 from django.views import generic
 from ergo.views import LoginRequiredMixin, PermissionRequiredMixin
@@ -152,3 +152,15 @@ class UserAnimeUpdateView(LoginRequiredMixin, userviews.SharedUserUpdateView):
     def get_queryset(self):
         qs = super(UserAnimeUpdateView, self).get_queryset()
         return qs.select_related('anime', 'fansub')
+
+
+class UserAnimeDeleteView(LoginRequiredMixin, userviews.SharedUserDeleteView):
+    model = models.UserAnime
+    shared_model = models.Anime
+
+    def get_queryset(self):
+        qs = super(UserAnimeDeleteView, self).get_queryset()
+        return qs.select_related('anime')
+
+    def get_success_url(self):
+        return reverse('ergoanimes:anime', args=(self.kwargs['pk'],))

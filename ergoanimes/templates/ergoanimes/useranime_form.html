@@ -91,7 +91,12 @@
       </div>
 
       <div class="row">
-        <div class="small-12 columns small-text-center medium-text-right">
+        {% if useranime %}
+          <div class="small-12 medium-6 columns small-text-center medium-text-left">
+            <a class="button small alert fi-trash" href="{% url 'ergoanimes:useranime_delete' anime.pk %}" title="Apagar"></a>
+          </div>
+        {% endif %}
+        <div class="small-12 {% if useranime %}medium-6 {% endif %}columns small-text-center medium-text-right">
           <a class="button secondary" href="{{ anime.get_absolute_url }}">Cancelar</a>
           <button type="submit">Salvar</button>
         </div>

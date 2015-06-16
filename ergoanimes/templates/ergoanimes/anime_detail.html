@@ -57,6 +57,7 @@
                 <li><b>Link:</b> {{ useranime.get_link_linkdisplay }}</li>
               </ul>
               <div class="small-text-center medium-text-right">
+                <a class="button small alert fi-trash" href="{% url 'ergoanimes:useranime_delete' anime.pk %}" title="Apagar"></a>
                 <a class="button small fi-pencil" href="{% url 'ergoanimes:useranime_edit' anime.pk %}" title="Editar"></a>
               </div>
               {% if useranime.comment %}<div class="text-justify">{{ useranime.comment|linebreaksbr }}</div>{% endif %}
