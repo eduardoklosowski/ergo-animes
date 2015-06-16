@@ -56,6 +56,9 @@
                 <li><b>Visto em:</b> {{ useranime.get_date_display }}</li>
                 <li><b>Link:</b> {{ useranime.get_link_linkdisplay }}</li>
               </ul>
+              <div class="small-text-center medium-text-right">
+                <a class="button small fi-pencil" href="{% url 'ergoanimes:useranime_edit' anime.pk %}" title="Editar"></a>
+              </div>
               {% if useranime.comment %}<div class="text-justify">{{ useranime.comment|linebreaksbr }}</div>{% endif %}
             {% else %}
               <a href="{% url 'ergoanimes:useranime_add' anime.pk %}">Adicionar para a minha lista</a>
