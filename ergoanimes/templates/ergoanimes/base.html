@@ -44,5 +44,19 @@
 
     <li><a href="{% url 'ergoanimes:genre_list' %}">Gêneros</a></li>
     <li class="divider"></li>
+
+    <li class="has-form">
+      <form action="{% url 'ergoanimes:anime_list' %}">
+        <div class="row collapse">
+          <div class="small-9 medium-12 large-8 columns">
+            <input type="text" name="anime" placeholder="Anime">
+          </div>
+          <div class="small-3 large-4 hide-for-medium columns">
+            <button type="submit"><i class="fi-magnifying-glass"></i></button>
+          </div>
+        </div>
+      </form>
+    </li>
+    <li class="divider"></li>
   </ul>
 {% endblock %}

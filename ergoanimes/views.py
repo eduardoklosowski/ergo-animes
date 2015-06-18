@@ -36,6 +36,8 @@ class AnimeListView(LoginRequiredMixin, generic.ListView):
 
     def get_queryset(self):
         qs = super(AnimeListView, self).get_queryset()
+        for word in self.request.GET.get('anime', '').split():
+            qs = qs.filter(name__icontains=word)
         return qs.prefetch_related('genres')
 
 
