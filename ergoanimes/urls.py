@@ -38,6 +38,8 @@ url_list = [
 
     url(r'^genre/$', views.GenreListView.as_view(), name='genre_list'),
     url(r'^genre/(?P<pk>\d+)/$', views.GenreDetailView.as_view(), name='genre'),
+
+    url(r'^anime/user/$', views.UserAnimeListView.as_view(), name='useranime_list'),
 ]
 
 urlpatterns = [

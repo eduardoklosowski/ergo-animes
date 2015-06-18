@@ -24,6 +24,7 @@ from django.core.urlresolvers import reverse_lazy
 from django.db.models.functions import Lower
 from django.views import generic
 from ergo.views import LoginRequiredMixin, PermissionRequiredMixin
+from userviews import views as userviews
 
 from . import models
 
@@ -111,3 +112,14 @@ class GenreListView(LoginRequiredMixin, generic.ListView):
 
 class GenreDetailView(LoginRequiredMixin, generic.DetailView):
     model = models.Genre
+
+
+# UserAnime
+
+class UserAnimeListView(LoginRequiredMixin, userviews.UserListView):
+    model = models.UserAnime
+    ordering = (Lower('anime__name'),)
+
+    def get_queryset(self):
+        qs = super(UserAnimeListView, self).get_queryset()
+        return qs.select_related('anime', 'fansub')
