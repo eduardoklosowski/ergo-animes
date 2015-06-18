@@ -30,6 +30,8 @@ from django.template.defaultfilters import date as datefilter, linebreaksbr
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.safestring import mark_safe
 
+from . import managers
+
 
 # Choices
 
@@ -340,6 +342,7 @@ class UserAnime(models.Model):
     note = models.DecimalField('nota', max_digits=2, decimal_places=1, blank=True, null=True,
                                validators=[MinValueValidator(0), MaxValueValidator(5)])
     comment = models.TextField('comentário', blank=True)
+    objects = managers.UserAnimeManager()
 
     class Meta:
         ordering = ('user', 'anime')
