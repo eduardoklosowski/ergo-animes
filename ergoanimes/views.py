@@ -31,6 +31,11 @@ from userviews import views as userviews
 from . import models
 
 
+class IndexView(LoginRequiredMixin, generic.RedirectView):
+    permanent = False
+    url = reverse_lazy('ergoanimes:useranime_statuslist')
+
+
 # Anime
 
 class AnimeListView(LoginRequiredMixin, generic.ListView):

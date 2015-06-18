@@ -25,3 +25,4 @@ class ErgoAnimesConfig(AppConfig):
     name = 'ergoanimes'
     verbose_name = 'Ergo Animes'
     ergo_url = 'ergoanimes'
+    ergo_index = 'ergoanimes:useranime_statuslist'
