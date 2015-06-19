@@ -1,7 +1,16 @@
 {% extends 'ergo/base.html' %}
+{% load compress %}
+{% load staticfiles %}
 
 
 {% block title %}{{ block.super }} Animes{% endblock %}
+
+{% block css %}
+  {{ block.super }}
+  {% compress css %}
+    <link rel="stylesheet" href="{% static 'ergoanimes/ergoanimes.css' %}">
+  {% endcompress %}
+{% endblock %}
 
 {% block top-bar-left %}
   <ul class="left">
