@@ -12,6 +12,13 @@
   {% endcompress %}
 {% endblock %}
 
+{% block js %}
+  {{ block.super }}
+  {% compress js %}
+    <script src="{% static 'ergoanimes/ergoanimes.js' %}"></script>
+  {% endcompress %}
+{% endblock %}
+
 {% block top-bar-left %}
   <ul class="left">
     <li class="divider"></li>
