@@ -1,5 +1,6 @@
 {% extends 'ergo/base.html' %}
 {% load compress %}
+{% load ergoanimes %}
 {% load staticfiles %}
 
 
@@ -28,6 +29,12 @@
         <li class="has-dropdown">
           <a href="{% url 'ergoanimes:useranime_list' %}">Minha Lista</a>
           <ul class="dropdown">
+            <li class="has-dropdown">
+              <a href="{% url 'ergoanimes:useranime_statuslist' %}">Status</a>
+              <ul class="dropdown">
+                {% ergoanimes_menustatus %}
+              </ul>
+            </li>
             <li><a href="{% url 'ergoanimes:useranime_list' %}">Todos</a></li>
           </ul>
         </li>

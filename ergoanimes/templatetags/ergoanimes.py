@@ -19,6 +19,7 @@
 #
 
 from django import template
+from django.core.urlresolvers import reverse
 
 from ..models import CHOICES_STATUS
 
@@ -49,3 +50,10 @@ def ergoanimes_episodes(episodes_a, episodes_b):
     if episodes_b is None:
         episodes_b = '-'
     return '%s/%s' % (episodes_a, episodes_b)
+
+
+@register.simple_tag
+def ergoanimes_menustatus():
+    url = reverse('ergoanimes:useranime_statuslist')
+    item = '<li><a href="%s#%s">%s</a></li>'
+    return ''.join(item % (url, status_id, status) for status_id, status in CHOICES_STATUS[1:] + CHOICES_STATUS[:1])

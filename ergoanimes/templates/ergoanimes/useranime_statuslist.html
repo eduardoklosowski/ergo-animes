@@ -1,0 +1,40 @@
+{% extends 'ergoanimes/base.html' %}
+{% load ergoanimes %}
+
+
+{% block title %}Minha Lista - {{ block.super }}{% endblock %}
+
+
+{% block content %}
+  <section class="content" role="application">
+    {% for status_id, status, useranime_list in status_list %}
+      <h2 id="{{ status_id }}">{{ status }}</h2>
+      <table class="width-full">
+        <thead>
+          <tr>
+            <th>Anime</th>
+            <th class="show-for-medium-up width-6r">Tipo</th>
+            <th class="show-for-medium-up width-6r">Temporada</th>
+            <th class="show-for-large-up width-6r">Nota</th>
+            <th class="show-for-medium-up width-6r">Episódios</th>
+            <th class="show-for-large-up">Fansub</th>
+            <th class="show-for-large-up width-6r">Link</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for useranime in useranime_list %}
+            <tr>
+              <td class="anime">{{ useranime.anime.get_anime_img_synopsis_linkdisplay }}</td>
+              <td class="show-for-medium-up">{{ useranime.anime.get_media_type_display }}</td>
+              <td class="show-for-medium-up">{{ useranime.anime.season_start|date:'b/Y'|capfirst|default:'-' }}</td>
+              <td class="show-for-large-up">{{ useranime.note|default_if_none:'-' }}</td>
+              <td class="show-for-medium-up">{% ergoanimes_episodes useranime.episodes_viewed useranime.anime.episodes %}</td>
+              <td class="show-for-large-up">{{ useranime.get_fansub_linkdisplay }}</td>
+              <td class="show-for-large-up">{{ useranime.get_link_linkdisplay }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% endfor %}
+  </section>
+{% endblock %}

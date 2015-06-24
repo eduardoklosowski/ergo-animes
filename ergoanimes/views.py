@@ -184,6 +184,25 @@ class UserAnimeListView(LoginRequiredMixin, userviews.UserListView):
         return qs.select_related('anime', 'fansub')
 
 
+class UserAnimeStatusListView(LoginRequiredMixin, userviews.UserListView):
+    model = models.UserAnime
+    ordering = (Lower('anime__name'),)
+    template_name_suffix = '_statuslist'
+
+    def get_queryset(self):
+        qs = super(UserAnimeStatusListView, self).get_queryset()
+        return qs.select_related('anime', 'fansub')
+
+    def get_context_data(self, **kwargs):
+        qs = self.object_list
+        status_list = [(status_id, status, [useranime for useranime in qs if useranime.status == status_id])
+                       for status_id, status in models.CHOICES_STATUS[1:] + models.CHOICES_STATUS[:1]]
+
+        context = super(UserAnimeStatusListView, self).get_context_data(**kwargs)
+        context['status_list'] = status_list
+        return context
+
+
 class UserAnimeCreateView(LoginRequiredMixin, userviews.SharedUserCreateView):
     model = models.UserAnime
     shared_model = models.Anime
