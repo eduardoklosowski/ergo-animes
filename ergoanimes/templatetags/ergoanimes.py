@@ -20,8 +20,12 @@
 
 from django import template
 
+from ..models import CHOICES_STATUS
+
 
 register = template.Library()
+
+STATUS = dict(CHOICES_STATUS)
 
 
 # Filters
@@ -29,6 +33,11 @@ register = template.Library()
 @register.filter
 def ergoanimes_getcount(obj, count):
     return count.get(obj.pk, 0)
+
+
+@register.filter
+def ergoanimes_getstatus(anime, anime_status):
+    return STATUS.get(anime_status.get(anime.pk, None), '-')
 
 
 # Tags

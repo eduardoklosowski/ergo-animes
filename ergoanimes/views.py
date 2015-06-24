@@ -43,6 +43,13 @@ class AnimeListView(LoginRequiredMixin, generic.ListView):
             qs = qs.filter(name__icontains=word)
         return qs.prefetch_related('genres')
 
+    def get_context_data(self, **kwargs):
+        anime_status = dict(models.UserAnime.objects.filter(user=self.request.user).values_list('anime', 'status'))
+
+        context = super(AnimeListView, self).get_context_data(**kwargs)
+        context['anime_status'] = anime_status
+        return context
+
 
 class AnimeDetailView(LoginRequiredMixin, generic.DetailView):
     model = models.Anime

@@ -1,4 +1,5 @@
 {% extends 'ergoanimes/base.html' %}
+{% load ergoanimes %}
 
 
 {% block title %}Animes - {{ block.super }}{% endblock %}
@@ -14,6 +15,7 @@
           <th class="show-for-medium-up width-6r">Episódios</th>
           <th class="show-for-medium-up width-6r">Temporada</th>
           <th class="show-for-large-up">Gêneros</th>
+          <th class="show-for-large-up width-6r">Status</th>
           <th class="show-for-medium-up width-6r">Links</th>
         </tr>
       </thead>
@@ -25,6 +27,7 @@
             <td class="show-for-medium-up text-right">{{ anime.episodes|default_if_none:'-' }}</td>
             <td class="show-for-medium-up">{{ anime.season_start|date:'b/Y'|capfirst|default:'-' }}</td>
             <td class="show-for-large-up">{{ anime.get_genres_linkdisplay }}</td>
+            <td class="show-for-large-up">{{ anime|ergoanimes_getstatus:anime_status }}</td>
             <td class="show-for-medium-up">{{ anime.get_links_linkdisplay }}</td>
           </tr>
         {% endfor %}
