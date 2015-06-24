@@ -90,6 +90,16 @@ class FansubListView(LoginRequiredMixin, generic.ListView):
 class FansubDetailView(LoginRequiredMixin, generic.DetailView):
     model = models.Fansub
 
+    def get_context_data(self, **kwargs):
+        mylist_list = models.Anime.objects.filter(
+            pk__in=models.UserAnime.objects.filter(user=self.request.user, fansub=self.object)
+            .values_list('anime', flat=True),
+        )
+
+        context = super(FansubDetailView, self).get_context_data(**kwargs)
+        context['mylist_list'] = mylist_list
+        return context
+
 
 class FansubCreateView(PermissionRequiredMixin, generic.CreateView):
     permission = 'ergoanimes.add_fansub'
