@@ -22,6 +22,7 @@ from __future__ import unicode_literals
 
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse, reverse_lazy
+from django.db.models import Count
 from django.db.models.functions import Lower
 from django.views import generic
 from ergo.views import LoginRequiredMixin, PermissionRequiredMixin
@@ -85,6 +86,14 @@ class AnimeDeleteView(PermissionRequiredMixin, generic.DeleteView):
 
 class FansubListView(LoginRequiredMixin, generic.ListView):
     model = models.Fansub
+
+    def get_context_data(self, **kwargs):
+        mylist_count = dict(models.UserAnime.objects.filter(user=self.request.user, fansub__isnull=False)
+                            .order_by().values_list('fansub').annotate(count=Count(1)))
+
+        context = super(FansubListView, self).get_context_data(**kwargs)
+        context['mylist_count'] = mylist_count
+        return context
 
 
 class FansubDetailView(LoginRequiredMixin, generic.DetailView):

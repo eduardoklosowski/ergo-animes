@@ -1,4 +1,5 @@
 {% extends 'ergoanimes/base.html' %}
+{% load ergoanimes %}
 
 
 {% block title %}Fansubs - {{ block.super }}{% endblock %}
@@ -13,6 +14,7 @@
           <th class="show-for-medium-up">Site</th>
           <th class="show-for-large-up">IRC</th>
           <th class="show-for-medium-up width-6r">Ativo</th>
+          <th class="width-6r">Minha Lista</th>
         </tr>
       </thead>
       <tbody>
@@ -22,6 +24,7 @@
             <td class="show-for-medium-up">{{ fansub.get_site_linkdisplay }}</td>
             <td class="show-for-large-up">{{ fansub.get_irc_linkdisplay }}</td>
             <td class="show-for-medium-up">{{ fansub.get_active_display }}</td>
+            <td>{{ fansub|ergoanimes_getcount:mylist_count }}</td>
           </tr>
         {% endfor %}
       </tbody>

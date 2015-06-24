@@ -24,6 +24,13 @@ from django import template
 register = template.Library()
 
 
+# Filters
+
+@register.filter
+def ergoanimes_getcount(obj, count):
+    return count.get(obj.pk, 0)
+
+
 # Tags
 
 @register.simple_tag
