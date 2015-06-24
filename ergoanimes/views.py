@@ -143,6 +143,17 @@ class GenreListView(LoginRequiredMixin, generic.ListView):
 class GenreDetailView(LoginRequiredMixin, generic.DetailView):
     model = models.Genre
 
+    def get_context_data(self, **kwargs):
+        anime_list = self.get_object().animes.all()
+        mylist_list = self.get_object().animes.filter(
+            pk__in=models.UserAnime.objects.filter(user=self.request.user).values_list('anime', flat=True),
+        )
+
+        context = super(GenreDetailView, self).get_context_data(**kwargs)
+        context['anime_list'] = anime_list
+        context['mylist_list'] = mylist_list
+        return context
+
 
 # UserAnime
 

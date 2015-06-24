@@ -11,5 +11,23 @@
         <h1>{{ genre }}</h1>
       </div>
     </div>
+    <div class="row">
+      <div class="small-12 medium-6 columns">
+        <h2>Minha Lista</h2>
+        <ul class="square">
+          {% for anime in mylist_list %}
+            <li><a href="{{ anime.get_absolute_url }}">{{ anime }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="small-12 medium-6 columns">
+        <h2>Animes</h2>
+        <ul class="square">
+          {% for anime in anime_list %}
+            <li><a href="{{ anime.get_absolute_url }}">{{ anime }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
   </section>
 {% endblock %}
