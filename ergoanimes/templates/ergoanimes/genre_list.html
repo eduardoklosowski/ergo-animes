@@ -1,4 +1,5 @@
 {% extends 'ergoanimes/base.html' %}
+{% load ergoanimes %}
 
 
 {% block title %}Gêneros - {{ block.super }}{% endblock %}
@@ -10,12 +11,16 @@
       <thead>
         <tr>
           <th>Gênero</th>
+          <th class="width-6r">Minha Lista</th>
+          <th class="width-6r show-for-medium-up">Animes</th>
         </tr>
       </thead>
       <tbody>
         {% for genre in genre_list %}
           <tr>
             <td><a href="{{ genre.get_absolute_url }}">{{ genre.get_genre_display }}</a></td>
+            <td>{{ genre|ergoanimes_getcount:mylist_count }}</td>
+            <td class="show-for-medium-up">{{ genre|ergoanimes_getcount:anime_count }}</td>
           </tr>
         {% endfor %}
       </tbody>

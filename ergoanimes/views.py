@@ -139,6 +139,17 @@ class GenreListView(LoginRequiredMixin, generic.ListView):
         qs = super(GenreListView, self).get_queryset()
         return sorted(qs, key=lambda x: x.get_genre_display())
 
+    def get_context_data(self, **kwargs):
+        anime_count = dict(models.Genre.objects.order_by().values_list('genre').annotate(count=Count('animes')))
+        mylist_count = dict(models.Genre.objects.order_by().values_list('genre').filter(
+            animes__in=models.UserAnime.objects.filter(user=self.request.user).values_list('anime', flat=True),
+        ).annotate(count=Count('animes')))
+
+        context = super(GenreListView, self).get_context_data(**kwargs)
+        context['anime_count'] = anime_count
+        context['mylist_count'] = mylist_count
+        return context
+
 
 class GenreDetailView(LoginRequiredMixin, generic.DetailView):
     model = models.Genre
