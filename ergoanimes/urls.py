@@ -43,6 +43,7 @@ url_list = [
 
     url(r'^anime/user/$', views.UserAnimeListView.as_view(), name='useranime_list'),
     url(r'^anime/user/status/$', views.UserAnimeStatusListView.as_view(), name='useranime_statuslist'),
+    url(r'^anime/user/report/$', views.UserAnimeReportListView.as_view(), name='useranime_reportlist'),
     url(r'^anime/(?P<pk>\d+)/user/add/$', views.UserAnimeCreateView.as_view(), name='useranime_add'),
     url(r'^anime/(?P<pk>\d+)/user/edit/$', views.UserAnimeUpdateView.as_view(), name='useranime_edit'),
     url(r'^anime/(?P<pk>\d+)/user/delete/$', views.UserAnimeDeleteView.as_view(), name='useranime_delete'),

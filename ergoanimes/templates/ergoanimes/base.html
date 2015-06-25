@@ -35,6 +35,15 @@
                 {% ergoanimes_menustatus %}
               </ul>
             </li>
+            <li class="has-dropdown">
+              <a href="{% url 'ergoanimes:useranime_reportlist' %}">Relatórios</a>
+              <ul class="dropdown">
+                <li><a href="{% url 'ergoanimes:useranime_reportlist' %}#watch">Assistir</a></li>
+                <li><a href="{% url 'ergoanimes:useranime_reportlist' %}#down">Baixar</a></li>
+                <li><a href="{% url 'ergoanimes:useranime_reportlist' %}#new-watch">Novos para Assistir</a></li>
+                <li><a href="{% url 'ergoanimes:useranime_reportlist' %}#new-down">Novos para Baixar</a></li>
+              </ul>
+            </li>
             <li><a href="{% url 'ergoanimes:useranime_list' %}">Todos</a></li>
           </ul>
         </li>

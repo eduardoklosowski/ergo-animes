@@ -208,6 +208,26 @@ class UserAnimeStatusListView(LoginRequiredMixin, userviews.UserListView):
         return context
 
 
+class UserAnimeReportListView(LoginRequiredMixin, generic.TemplateView):
+    template_name = 'ergoanimes/useranime_reportlist.html'
+
+    def get_context_data(self, **kwargs):
+        report_list = [
+            ('watch', 'Assistir',
+             models.UserAnime.objects.watch(self.request.user).select_related('fansub')),
+            ('down', 'Baixar',
+             models.UserAnime.objects.down(self.request.user).select_related('fansub')),
+            ('new-watch', 'Novos para Assistir',
+             models.UserAnime.objects.new_watch(self.request.user).select_related('fansub')),
+            ('new-down', 'Novos para Baixar',
+             models.UserAnime.objects.new_down(self.request.user).select_related('fansub')),
+        ]
+
+        context = super(UserAnimeReportListView, self).get_context_data(**kwargs)
+        context['report_list'] = report_list
+        return context
+
+
 class UserAnimeCreateView(LoginRequiredMixin, userviews.SharedUserCreateView):
     model = models.UserAnime
     shared_model = models.Anime
