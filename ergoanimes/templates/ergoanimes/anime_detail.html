@@ -47,9 +47,9 @@
                 <li>
                   <b>Episódios:</b>
                   <ul class="square">
-                    <li><b>Publicados:</b> {% ergoanimes_episodes useranime.episodes_pub anime.episodes %}</li>
-                    <li><b>Baixados:</b> {% ergoanimes_episodes useranime.episodes_down useranime.episodes_pub %}</li>
-                    <li><b>Vistos:</b> {% ergoanimes_episodes useranime.episodes_viewed useranime.episodes_down %}</li>
+                    <li><b>Publicados:</b> {% ergoanimes_episodes useranime.episodes_pub anime.episodes anime.pk 'pub' %}</li>
+                    <li><b>Baixados:</b> {% ergoanimes_episodes useranime.episodes_down useranime.episodes_pub anime.pk 'down' anime.episodes %}</li>
+                    <li><b>Vistos:</b> {% ergoanimes_episodes useranime.episodes_viewed useranime.episodes_down anime.pk 'viewed' anime.episodes %}</li>
                   </ul>
                 </li>
                 <li><b>Vezes visto:</b> {{ useranime.times }}</li>

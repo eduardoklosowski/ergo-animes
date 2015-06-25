@@ -28,7 +28,7 @@
               <td class="show-for-medium-up">{{ useranime.anime.get_media_type_display }}</td>
               <td class="show-for-medium-up">{{ useranime.anime.season_start|date:'b/Y'|capfirst|default:'-' }}</td>
               <td class="show-for-large-up">{{ useranime.note|default_if_none:'-' }}</td>
-              <td class="show-for-medium-up">{% ergoanimes_episodes useranime.episodes_viewed useranime.anime.episodes %}</td>
+              <td class="show-for-medium-up">{% ergoanimes_episodes useranime.episodes_viewed useranime.anime.episodes useranime.anime.pk 'viewed' %}</td>
               <td class="show-for-large-up">{{ useranime.get_fansub_linkdisplay }}</td>
               <td class="show-for-large-up">{{ useranime.get_link_linkdisplay }}</td>
             </tr>

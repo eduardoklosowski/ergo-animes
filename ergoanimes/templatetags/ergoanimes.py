@@ -44,12 +44,18 @@ def ergoanimes_getstatus(anime, anime_status):
 # Tags
 
 @register.simple_tag
-def ergoanimes_episodes(episodes_a, episodes_b):
+def ergoanimes_episodes(episodes_a, episodes_b, pk=None, episode_type='', episodes_max=None):
     if episodes_a is None:
         episodes_a = '-'
     if episodes_b is None:
         episodes_b = '-'
-    return '%s/%s' % (episodes_a, episodes_b)
+
+    if pk and episode_type and episodes_a != episodes_b and (not episodes_max or episodes_a != episodes_max):
+        plus = ' <a href="%s">+</a>' % reverse('ergoanimes:useranime_plus', args=(pk, episode_type,))
+    else:
+        plus = ''
+
+    return '%s/%s%s' % (episodes_a, episodes_b, plus)
 
 
 @register.simple_tag

@@ -29,13 +29,13 @@
               <td class="show-for-medium-up">{{ useranime.anime.season_start|date:'b/Y'|capfirst|default:'-' }}</td>
               <td class="show-for-medium-up">
                 {% if report_id == 'watch' %}
-                  {% ergoanimes_episodes useranime.episodes_viewed useranime.episodes_down %}
+                  {% ergoanimes_episodes useranime.episodes_viewed useranime.episodes_down useranime.anime.pk 'viewed' useranime.anime.episodes %}
                 {% elif report_id == 'down' %}
-                  {% ergoanimes_episodes useranime.episodes_down useranime.episodes_pub %}
+                  {% ergoanimes_episodes useranime.episodes_down useranime.episodes_pub useranime.anime.pk 'down' useranime.anime.episodes %}
                 {% elif report_id == 'new-watch' %}
-                  {% ergoanimes_episodes useranime.episodes_viewed useranime.episodes_down %}
+                  {% ergoanimes_episodes useranime.episodes_viewed useranime.episodes_down useranime.anime.pk 'viewed' useranime.anime.episodes %}
                 {% elif report_id == 'new-down' %}
-                  {% ergoanimes_episodes useranime.episodes_down useranime.episodes_pub %}
+                  {% ergoanimes_episodes useranime.episodes_down useranime.episodes_pub useranime.anime.pk 'down' useranime.anime.episodes %}
                 {% endif %}
               </td>
               <td>{{ useranime.get_status_display }}</td>

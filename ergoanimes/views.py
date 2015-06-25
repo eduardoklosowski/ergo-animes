@@ -20,11 +20,14 @@
 
 from __future__ import unicode_literals
 
-from django.core.exceptions import ObjectDoesNotExist
+from datetime import date
+from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.db.models import Count
 from django.db.models.functions import Lower
+from django.http import HttpResponse
 from django.views import generic
+from django.shortcuts import redirect
 from ergo.views import LoginRequiredMixin, PermissionRequiredMixin
 from userviews import views as userviews
 
@@ -264,3 +267,43 @@ class UserAnimeDeleteView(LoginRequiredMixin, userviews.SharedUserDeleteView):
 
     def get_success_url(self):
         return reverse('ergoanimes:anime', args=(self.kwargs['pk'],))
+
+
+class UserAnimePlusView(LoginRequiredMixin, userviews.SharedUserDetailView):
+    model = models.UserAnime
+    shared_model = models.Anime
+
+    def get(self, request, *args, **kwargs):
+        self.object = useranime = self.get_object()
+
+        if kwargs['episode_type'] == 'pub':
+            useranime.episodes_pub = (useranime.episodes_pub or 0) + 1
+        elif kwargs['episode_type'] == 'down':
+            useranime.episodes_down = (useranime.episodes_down or 0) + 1
+        elif kwargs['episode_type'] == 'viewed':
+            useranime.episodes_viewed = (useranime.episodes_viewed or 0) + 1
+            self.watching_status_date()
+        else:
+            return HttpResponse('Tipo de episódio não identificado', status=406)
+
+        try:
+            useranime.clean()
+            useranime.save()
+        except ValidationError as e:
+            return HttpResponse('\n'.join(e.messages), status=406)
+
+        if 'HTTP_REFERER' in self.request.META:
+            return redirect(self.request.META['HTTP_REFERER'])
+        return HttpResponse(status=204)
+
+    def watching_status_date(self):
+        useranime = self.object
+        if useranime.episodes_viewed == 1 and useranime.status not in ('completed', 'drop'):
+            useranime.status = 'watching'
+            if not useranime.date_start:
+                useranime.date_start = date.today()
+        if useranime.anime.episodes and useranime.episodes_viewed == useranime.anime.episodes:
+            useranime.status = 'completed'
+            useranime.times += 1
+            if not useranime.date_end:
+                useranime.date_end = date.today()
