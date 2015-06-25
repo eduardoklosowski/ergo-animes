@@ -19,7 +19,7 @@
 #
 
 from django.apps import AppConfig
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.utils.safestring import mark_safe
 
 
@@ -28,6 +28,11 @@ class ErgoAnimesConfig(AppConfig):
     verbose_name = 'Ergo Animes'
     ergo_url = 'ergoanimes'
     ergo_index = 'ergoanimes:useranime_statuslist'
+    ergo_menu_links = (
+        ('Relatórios', reverse_lazy('ergoanimes:useranime_reportlist')),
+        ('Status', reverse_lazy('ergoanimes:useranime_statuslist')),
+        ('Verificar Novos', reverse_lazy('ergoanimes:useranime_checknewlist')),
+    )
 
     def ergo_notify(self, request):
         from .templatetags.ergoanimes import ergoanimes_episodes
