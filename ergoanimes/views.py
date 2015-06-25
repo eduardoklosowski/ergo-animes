@@ -228,6 +228,14 @@ class UserAnimeReportListView(LoginRequiredMixin, generic.TemplateView):
         return context
 
 
+class UserAnimeCheckNewListView(LoginRequiredMixin, generic.ListView):
+    model = models.UserAnime
+    template_name_suffix = '_checknewlist'
+
+    def get_queryset(self):
+        return models.UserAnime.objects.check_new(self.request.user).select_related('fansub')
+
+
 class UserAnimeCreateView(LoginRequiredMixin, userviews.SharedUserCreateView):
     model = models.UserAnime
     shared_model = models.Anime
