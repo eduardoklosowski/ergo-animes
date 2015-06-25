@@ -19,6 +19,8 @@
 #
 
 from django.apps import AppConfig
+from django.core.urlresolvers import reverse
+from django.utils.safestring import mark_safe
 
 
 class ErgoAnimesConfig(AppConfig):
@@ -26,3 +28,31 @@ class ErgoAnimesConfig(AppConfig):
     verbose_name = 'Ergo Animes'
     ergo_url = 'ergoanimes'
     ergo_index = 'ergoanimes:useranime_statuslist'
+
+    def ergo_notify(self, request):
+        from .templatetags.ergoanimes import ergoanimes_episodes
+        UserAnime = self.get_model('UserAnime')
+
+        html = []
+        report_url = reverse('ergoanimes:useranime_reportlist')
+        report_list = (
+            ('watch', 'Assistir', UserAnime.objects.watch(request.user)),
+            ('down', 'Baixar', UserAnime.objects.down(request.user)),
+        )
+        for report_id, report, useranime_list in report_list:
+            count = useranime_list.count()
+            if not count:
+                continue
+            text = ['<ul class="no-bullet no-margin">']
+            for useranime in useranime_list:
+                if report_id == 'watch':
+                    episodes = ergoanimes_episodes(useranime.episodes_viewed, useranime.episodes_down)
+                elif report_id == 'down':
+                    episodes = ergoanimes_episodes(useranime.episodes_down, useranime.episodes_pub)
+                text.append('<li><a href="%s">%s</a> [%s]</li>' % (useranime.get_absolute_url(), useranime, episodes))
+            text.append('</ul>')
+            html.append({'url': '%s#%s' % (report_url, report_id),
+                         'title': 'Animes: %s' % report,
+                         'count': count,
+                         'text': mark_safe(''.join(text))})
+        return html
