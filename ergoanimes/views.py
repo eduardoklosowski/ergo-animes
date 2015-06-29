@@ -259,6 +259,10 @@ class UserAnimeCheckNewListView(LoginRequiredMixin, generic.ListView):
         return models.UserAnime.objects.check_new(self.request.user).select_related('fansub')
 
 
+class UserAnimeNoteListView(UserAnimeListView):
+    ordering = ('-note', Lower('anime__name'))
+
+
 class UserAnimeCreateView(LoginRequiredMixin, userviews.SharedUserCreateView):
     model = models.UserAnime
     shared_model = models.Anime
