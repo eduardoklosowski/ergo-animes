@@ -1,0 +1,40 @@
+{% extends 'ergoanimes/base.html' %}
+{% load ergoanimes %}
+
+
+{% block title %}Temporadas - {{ block.super }}{% endblock %}
+
+
+{% block content %}
+  <section class="content" role="application">
+    {% for season, anime_list in season_list %}
+      <h2 id="{{ season|date:'Ym' }}">{{ season|date:'b/Y'|capfirst }}</h2>
+      <table class="width-full">
+        <thead>
+          <tr>
+            <th>Anime</th>
+            <th class="show-for-medium-up width-6r">Tipo</th>
+            <th class="show-for-medium-up width-6r">Episódios</th>
+            <th class="show-for-medium-up width-6r">Estreia</th>
+            <th class="show-for-large-up">Gêneros</th>
+            <th class="show-for-large-up width-6r">Status</th>
+            <th class="show-for-medium-up width-6r">Links</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for anime in anime_list %}
+            <tr>
+              <td class="anime">{{ anime.get_anime_img_synopsis_linkdisplay }}</td>
+              <td class="show-for-medium-up">{{ anime.get_media_type_display }}</td>
+              <td class="show-for-medium-up text-right">{{ anime.episodes|default_if_none:'-' }}</td>
+              <td class="show-for-medium-up">{{ anime.air_start|date:'d/m/Y'|default:'-' }}</td>
+              <td class="show-for-large-up">{{ anime.get_genres_linkdisplay }}</td>
+              <td class="show-for-large-up">{{ anime|ergoanimes_getstatus:anime_status }}</td>
+              <td class="show-for-medium-up">{{ anime.get_links_linkdisplay }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% endfor %}
+  </section>
+{% endblock %}

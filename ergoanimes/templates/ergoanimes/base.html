@@ -48,6 +48,7 @@
             <li><a href="{% url 'ergoanimes:useranime_list' %}">Todos</a></li>
           </ul>
         </li>
+        <li><a href="{% url 'ergoanimes:anime_seasonlist' %}">Por Temporada</a></li>
         <li><a href="{% url 'ergoanimes:anime_list' %}">Todos</a></li>
         {% if perms.ergoanimes.add_anime %}
           <li class="divider"></li>

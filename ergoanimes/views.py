@@ -20,6 +20,7 @@
 
 from __future__ import unicode_literals
 
+from collections import defaultdict
 from datetime import date
 from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.core.urlresolvers import reverse, reverse_lazy
@@ -56,6 +57,25 @@ class AnimeListView(LoginRequiredMixin, generic.ListView):
 
         context = super(AnimeListView, self).get_context_data(**kwargs)
         context['anime_status'] = anime_status
+        return context
+
+
+class AnimeSeasonListView(AnimeListView):
+    ordering = ('-season_start', Lower('name'),)
+    template_name = 'ergoanimes/anime_seasonlist.html'
+
+    def get_queryset(self):
+        qs = super(AnimeSeasonListView, self).get_queryset()
+        return qs.filter(season_start__isnull=False)
+
+    def get_context_data(self, **kwargs):
+        seasons = defaultdict(list)
+        for anime in self.object_list:
+            seasons[anime.season_start].append(anime)
+        season_list = [(season, seasons[season]) for season in sorted(seasons.keys(), reverse=True)]
+
+        context = super(AnimeSeasonListView, self).get_context_data(**kwargs)
+        context['season_list'] = season_list
         return context
 
 

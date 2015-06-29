@@ -32,6 +32,7 @@ class ErgoAnimesConfig(AppConfig):
         ('Relatórios', reverse_lazy('ergoanimes:useranime_reportlist')),
         ('Status', reverse_lazy('ergoanimes:useranime_statuslist')),
         ('Verificar Novos', reverse_lazy('ergoanimes:useranime_checknewlist')),
+        ('Por Temporada', reverse_lazy('ergoanimes:anime_seasonlist')),
     )
 
     def ergo_notify(self, request):
