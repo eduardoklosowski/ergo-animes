@@ -263,6 +263,57 @@ class UserAnimeNoteListView(UserAnimeListView):
     ordering = ('-note', Lower('anime__name'))
 
 
+class UserAnimeStaticsView(LoginRequiredMixin, userviews.UserListView):
+    model = models.UserAnime
+    template_name_suffix = '_statics'
+
+    def get_queryset(self):
+        qs = super(UserAnimeStaticsView, self).get_queryset()
+        return qs.select_related('anime').prefetch_related('anime__genres')
+
+    def get_context_data(self, **kwargs):
+        viewed_media_type = {media_type: 0 for media_type, _ in models.CHOICES_MEDIA_TYPE}
+        episodes_viewed = 0
+        episodes_down = 0
+        time_viewed = 0
+        time_down = 0
+        have_note = 0
+        sum_note = 0
+        seasons = defaultdict(lambda: defaultdict(int))
+
+        for useranime in self.get_queryset():
+            anime = useranime.anime
+            episodes = 0
+            if useranime.times:
+                viewed_media_type[anime.media_type] += 1
+                episodes = useranime.times * anime.episodes
+            if useranime.episodes_viewed and (not anime.episodes or useranime.episodes_viewed < anime.episodes):
+                episodes += useranime.episodes_viewed
+            episodes_viewed += episodes
+            episodes_down += useranime.episodes_down or 0
+            if anime.duration:
+                time_viewed += episodes * anime.duration
+                time_down += (useranime.episodes_down or 0) * anime.duration
+            if useranime.note is not None:
+                have_note += 1
+                sum_note += useranime.note
+            season = seasons[anime.season_start]
+            for genre in anime.genres.all():
+                season[genre] += 1
+
+        context = super(UserAnimeStaticsView, self).get_context_data(**kwargs)
+        context['viewed_media_type'] = [(verbose_media_type, viewed_media_type[media_type])
+                                        for media_type, verbose_media_type in models.CHOICES_MEDIA_TYPE if media_type]
+        context['episodes_viewed'] = episodes_viewed
+        context['time_viewed'] = time_viewed / 1440.
+        context['episodes_down'] = episodes_down
+        context['time_down'] = time_down / 1440.
+        context['note'] = sum_note / have_note
+        context['seasons'] = sorted(((season, sorted(genres.items(), key=lambda x: x[1], reverse=True))
+                                     for season, genres in seasons.items()), reverse=True)
+        return context
+
+
 class UserAnimeCreateView(LoginRequiredMixin, userviews.SharedUserCreateView):
     model = models.UserAnime
     shared_model = models.Anime

@@ -1,0 +1,43 @@
+{% extends 'ergoanimes/base.html' %}
+
+
+{% block title %}Estatísticas - {{ block.super }}{% endblock %}
+
+
+{% block content %}
+  <section class="content" role="application">
+    <h2>Anime por Categoria</h2>
+    <ul class="inline-list">
+      {% for media_type, count in viewed_media_type %}
+        <li class="text-right"><b>{{ media_type }}:</b> {{ count }}</li>
+      {% endfor %}
+    </ul>
+
+    <h2>Episódios</h2>
+    <ul class="inline-list">
+      <li class="text-right"><b>Vistos:</b> {{ episodes_viewed }}</li>
+      <li class="text-right"><b>Tempo Visto:</b> {{ time_viewed|floatformat:2 }} dias</li>
+      <li class="text-right"><b>Baixados:</b> {{ episodes_down }}</li>
+      <li class="text-right"><b>Tempo Baixado:</b> {{ time_down|floatformat:2 }} dias</li>
+    </ul>
+
+    <h2>Nota</h2>
+    <ul class="inline-list">
+      <li class="text-right"><b>Média:</b> {{ note|floatformat:2 }}</li>
+    </ul>
+
+    <h2>Categorias por Temporada</h2>
+    <ul class="square">
+      {% for season, genres in seasons %}
+          <li>
+            <b>{{ season|date:'b/Y'|capfirst }}</b>
+            <ul class="inline-list">
+              {% for genre, count in genres %}
+              <li><span><b>{{ genre }}:</b> {{ count }}</span></li>
+              {% endfor %}
+            </ul>
+          </li>
+      {% endfor %}
+    <ul>
+  </section>
+{% endblock %}
