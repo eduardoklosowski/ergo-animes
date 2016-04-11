@@ -11,7 +11,7 @@ class UserAnimeManager(Manager):
             status__in=('complated', 'drop'),
         ).filter(
             Q(status='watching') | Q(episodes_down__isnull=False),
-            episodes_pub__lt=F('anime__episodes'),
+            Q(anime__episodes__isnull=True) | Q(episodes_pub__lt=F('anime__episodes')),
         ).select_related('anime')
 
     def down(self, user):
