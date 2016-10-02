@@ -310,7 +310,7 @@ class UserAnimeStaticsView(LoginRequiredMixin, userviews.UserListView):
         context['time_down'] = time_down / 1440.
         context['note'] = sum_note / have_note
         context['seasons'] = sorted(((season, sorted(genres.items(), key=lambda x: x[1], reverse=True))
-                                     for season, genres in seasons.items()), reverse=True)
+                                     for season, genres in seasons.items() if season is not None), reverse=True)
         return context
 
 
