@@ -364,7 +364,7 @@ class UserAnime(models.Model):
         episodes = self.anime.episodes
         if episodes is not None:
             if self.episodes_pub is not None and self.episodes_pub > episodes:
-                raise ValidationError('Episódios publicadso maior que %d' % episodes)
+                raise ValidationError('Episódios publicados maior que %d' % episodes)
             if self.episodes_down is not None and self.episodes_down > episodes:
                 raise ValidationError('Episódios baixados maior que %d' % episodes)
             if self.episodes_viewed is not None and self.episodes_viewed > episodes:
